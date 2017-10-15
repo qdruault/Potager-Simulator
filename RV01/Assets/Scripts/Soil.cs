@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Soil : MonoBehaviour {
 
-    private enum SoilType { Earth, Sand };
-
+    // Type of the soil.
+    private string type;
+    // Humidity of the soil.
     private float humidityLevel;
-    private SoilType type;
+    // How fast the soil dry.
+    private float drySpeed;
 
-    private SoilType Type
+    private string Type
     {
         get
         {
@@ -44,4 +46,24 @@ public class Soil : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    // Water the soil.
+    public void Water(float water)
+    {
+        this.humidityLevel += water;
+        if (this.humidityLevel > 1)
+        {
+            this.humidityLevel = 1;
+        }
+    }
+
+    // The soils dries.
+    public void Dry()
+    {
+        this.humidityLevel -= drySpeed;
+        if (this.humidityLevel < 0)
+        {
+            this.humidityLevel = 0;
+        }
+    }
 }
