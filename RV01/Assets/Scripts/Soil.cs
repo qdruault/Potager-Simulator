@@ -5,11 +5,11 @@ using UnityEngine;
 public class Soil : MonoBehaviour {
 
     // Type of the soil.
-    private string type;
+    protected string type;
     // Humidity of the soil.
-    private float humidityLevel;
+    protected float humidityLevel;
     // How fast the soil dry.
-    private float drySpeed;
+    protected float drySpeed;
 
     private string Type
     {
@@ -47,7 +47,9 @@ public class Soil : MonoBehaviour {
 		
 	}
 
-    // Water the soil.
+    /** Water the soil.
+     * water : float between 0.0f and 1.0f
+     * */
     public void Water(float water)
     {
         this.humidityLevel += water;
