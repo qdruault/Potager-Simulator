@@ -4,25 +4,12 @@ using UnityEngine;
 
 public class Soil : MonoBehaviour {
 
-    // Type of the soil.
-    protected string type;
     // Humidity of the soil.
     protected float humidityLevel;
     // How fast the soil dry.
     protected float drySpeed;
-
-    private string Type
-    {
-        get
-        {
-            return type;
-        }
-
-        set
-        {
-            type = value;
-        }
-    }
+    // The plant if there is one.
+    protected Plant plant = null;
 
     public float HumidityLevel
     {
@@ -37,9 +24,22 @@ public class Soil : MonoBehaviour {
         }
     }
 
+    public Plant Plant
+    {
+        get
+        {
+            return plant;
+        }
+
+        set
+        {
+            plant = value;
+        }
+    }
+
     // Use this for initialization
     void Start () {
-		
+        
 	}
 	
 	// Update is called once per frame
