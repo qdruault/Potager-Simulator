@@ -5,13 +5,13 @@ using UnityEngine;
 public class Plant : MonoBehaviour {
 
     // The soil if there is one.
-    protected Soil soil;
+    protected Soil soil = null;
     // The optimal level of humidity to grow.
     protected float optimalHumidity;
     // The growth speed.
     protected float growthSpeed;
     // The growth progress.
-    protected float growthProgress;
+    protected float growthProgress = 0;
 
     public Soil Soil
     {
@@ -66,17 +66,16 @@ public class Plant : MonoBehaviour {
     }
     // Use this for initialization
     void Start () {
-        this.Soil = null;
-        this.growthProgress = 0;
+        
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        this.Grow();
+        
 	}
 
     // The plant grows.
-    private void Grow()
+    protected void Grow()
     {
         // The values of humidity needed.
         float minHumidityRequired = this.optimalHumidity * 0.9f;
@@ -94,7 +93,7 @@ public class Plant : MonoBehaviour {
     }
 
     // Over ?
-    private bool IsOver()
+    protected bool IsOver()
     {
         return this.growthProgress >= 1;
     }
