@@ -38,12 +38,12 @@ public class Soil : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
+	protected virtual void Start () {
         
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	protected virtual void Update () {
 		
 	}
 

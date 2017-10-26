@@ -13,6 +13,14 @@ public class Plant : MonoBehaviour {
     // The growth progress.
     protected float growthProgress = 0;
 
+	protected bool isPlanted = false;
+
+	protected Rigidbody rb;
+	protected MeshRenderer rr;
+
+	public GameObject apple;
+	
+
     public Soil Soil
     {
         get
@@ -64,14 +72,15 @@ public class Plant : MonoBehaviour {
             growthProgress = value;
         }
     }
+
     // Use this for initialization
-    void Start () {
-        
+	public virtual void Start () {
+		rb = GetComponent<Rigidbody> ();
+		rr = GetComponent<MeshRenderer> ();
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        
+	public virtual void Update () {
 	}
 
     // The plant grows.
@@ -81,10 +90,15 @@ public class Plant : MonoBehaviour {
         float minHumidityRequired = this.optimalHumidity * 0.9f;
         float maxHumidityRequired = this.optimalHumidity * 1.1f;
 
+		Debug.Log ("Humidity : " + this.soil.HumidityLevel);
+		Debug.Log ("Min : " + minHumidityRequired);
+		Debug.Log ("Max : " + maxHumidityRequired);
+
         // If the soil is wet enough.
         if (this.soil.HumidityLevel > minHumidityRequired && this.soil.HumidityLevel < maxHumidityRequired)
         {
             this.growthProgress += this.growthSpeed;
+			Debug.Log ("Grow Progress : " + this.growthProgress);
             if (this.growthProgress > 1)
             {
                 this.growthProgress = 1;
@@ -97,4 +111,28 @@ public class Plant : MonoBehaviour {
     {
         return this.growthProgress >= 1;
     }
+
+	protected void EndGrowth(){
+		isPlanted = false;
+		Vector3 applePosition = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
+		Instantiate (apple, applePosition, Quaternion.identity);
+		Destroy (gameObject);
+	}
+
+	void OnCollisionEnter(Collision collision){
+
+		// Drop on soil
+		if (collision.gameObject.CompareTag ("Soil")) {
+			Debug.Log ("Soil");
+			// indication graphique
+			gameObject.transform.position = collision.gameObject.transform.position;
+
+			rr.enabled = false;
+
+			soil = collision.gameObject.GetComponent<Soil>();
+
+			isPlanted = true;
+		}
+	}
+
 }
