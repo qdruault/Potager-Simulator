@@ -2,26 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Plant : MonoBehaviour {
+public class PlantScript : MonoBehaviour {
 
     // The soil if there is one.
-    protected Soil soil = null;
+    protected SoilScript soil = null;
     // The optimal level of humidity to grow.
     protected float optimalHumidity;
     // The growth speed.
     protected float growthSpeed;
     // The growth progress.
     protected float growthProgress = 0;
-
+    // True if the plant is in the soil.
 	protected bool isPlanted = false;
 
 	protected Rigidbody rb;
 	protected MeshRenderer rr;
-
-	public GameObject apple;
+    // The prefab of the grown plant.
+	public GameObject plantPrefab;
 	
 
-    public Soil Soil
+    public SoilScript Soil
     {
         get
         {
@@ -113,24 +113,24 @@ public class Plant : MonoBehaviour {
     }
 
 	protected void EndGrowth(){
-		isPlanted = false;
-		Vector3 applePosition = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
-		Instantiate (apple, applePosition, Quaternion.identity);
+        // The position of the future plant.
+		Vector3 newPlantPosition = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
+        // Create the plant at the right spot using the right prefab.
+		Instantiate (plantPrefab, newPlantPosition, Quaternion.identity);
+        // Destroy the "seed".
 		Destroy (gameObject);
 	}
 
 	void OnCollisionEnter(Collision collision){
 
-		// Drop on soil
+		// When the seed is "planted".
 		if (collision.gameObject.CompareTag ("Soil")) {
-			Debug.Log ("Soil");
-			// indication graphique
-			gameObject.transform.position = collision.gameObject.transform.position;
-
+			Debug.Log ("Plant hit the soil");
+            // The seed disappear (in the soil).
 			rr.enabled = false;
-
-			soil = collision.gameObject.GetComponent<Soil>();
-
+            // The soil set to the plant is the object collided.
+			soil = collision.gameObject.GetComponent<SoilScript>();
+            // The seed is now planted.
 			isPlanted = true;
 		}
 	}

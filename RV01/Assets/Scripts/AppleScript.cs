@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Apple : Plant {
+public class AppleScript : PlantScript {
 
 	// Use this for initialization
 	public override void Start () {
 
 		base.Start ();
-
 		this.optimalHumidity = 1f;
         //this.optimalHumidity = 0.4f;
         this.growthSpeed = 0.01f;

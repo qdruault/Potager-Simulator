@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Banana : Plant {
+public class BananaScript : PlantScript {
 
     // Use this for initialization
     void Start()

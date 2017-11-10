@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SandSoil : Soil {
+public class SandSoilScript : SoilScript
+{
 
 	// Use this for initialization
 	void Start () {

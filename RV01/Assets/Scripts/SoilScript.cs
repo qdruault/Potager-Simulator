@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Soil : MonoBehaviour {
+public class SoilScript : MonoBehaviour {
 
     // Humidity of the soil.
     protected float humidityLevel;
     // How fast the soil dry.
     protected float drySpeed;
     // The plant if there is one.
-    protected Plant plant = null;
+    protected PlantScript plant = null;
 
     public float HumidityLevel
     {
@@ -24,7 +24,7 @@ public class Soil : MonoBehaviour {
         }
     }
 
-    public Plant Plant
+    public PlantScript Plant
     {
         get
         {
