@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EarthSoil : Soil {
+public class EarthSoilScript : SoilScript
+{
 
 	// Use this for initialization
 	protected override void Start () {

@@ -47,7 +47,6 @@ public class RayCasting : MonoBehaviour
 		{
 			if (rayCasted) 
 			{
-				Debug.Log ("Object attached");
 				attachedObject = hitInfo.rigidbody;
 				attachedObject.isKinematic = true;
 				distanceToObj = hitInfo.distance;
@@ -59,7 +58,7 @@ public class RayCasting : MonoBehaviour
 		{
 			attachedObject.isKinematic = false;
 			attachedObject = null;
-			Debug.Log ("Object detached");
+
 			if (rayCasted) 
 			{
 				Cursor.SetCursor (cursorDraggable, hotSpot, cursorMode);

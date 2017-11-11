@@ -2,26 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Plant : MonoBehaviour {
+public class PlantScript : MonoBehaviour {
 
     // The soil if there is one.
-    protected Soil soil = null;
+    protected SoilScript soil = null;
     // The optimal level of humidity to grow.
     protected float optimalHumidity;
     // The growth speed.
     protected float growthSpeed;
     // The growth progress.
     protected float growthProgress = 0;
-
+    // True if the plant is in the soil.
 	protected bool isPlanted = false;
 
 	protected Rigidbody rb;
 	protected MeshRenderer rr;
-
-	public GameObject apple;
+    // The prefab of the grown plant.
+	public GameObject plantPrefab;
 	
 
-    public Soil Soil
+    public SoilScript Soil
     {
         get
         {
@@ -80,8 +80,19 @@ public class Plant : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	public virtual void Update () {
-	}
+	public virtual void Update ()
+    {
+        if (isPlanted)
+        {
+            // Make the plant grows.
+            Grow();
+            // When the growth is over.
+            if (IsOver())
+            {
+                EndGrowth();
+            }
+        }
+    }
 
     // The plant grows.
     protected void Grow()
@@ -90,15 +101,10 @@ public class Plant : MonoBehaviour {
         float minHumidityRequired = this.optimalHumidity * 0.9f;
         float maxHumidityRequired = this.optimalHumidity * 1.1f;
 
-		Debug.Log ("Humidity : " + this.soil.HumidityLevel);
-		Debug.Log ("Min : " + minHumidityRequired);
-		Debug.Log ("Max : " + maxHumidityRequired);
-
         // If the soil is wet enough.
         if (this.soil.HumidityLevel > minHumidityRequired && this.soil.HumidityLevel < maxHumidityRequired)
         {
             this.growthProgress += this.growthSpeed;
-			Debug.Log ("Grow Progress : " + this.growthProgress);
             if (this.growthProgress > 1)
             {
                 this.growthProgress = 1;
@@ -113,24 +119,26 @@ public class Plant : MonoBehaviour {
     }
 
 	protected void EndGrowth(){
-		isPlanted = false;
-		Vector3 applePosition = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
-		Instantiate (apple, applePosition, Quaternion.identity);
-		Destroy (gameObject);
+        // The position of the future plant.
+		Vector3 newPlantPosition = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
+        // Create the plant at the right spot using the right prefab.
+		GameObject newPlant = Instantiate (plantPrefab, newPlantPosition, Quaternion.identity);
+        // Few fixes to be able to "take" the new plant.
+        newPlant.tag = "Draggable";
+        newPlant.AddComponent<Rigidbody>();
+        // Destroy the "seed".
+        Destroy (gameObject);
 	}
 
 	void OnCollisionEnter(Collision collision){
 
-		// Drop on soil
+		// When the seed is "planted".
 		if (collision.gameObject.CompareTag ("Soil")) {
-			Debug.Log ("Soil");
-			// indication graphique
-			gameObject.transform.position = collision.gameObject.transform.position;
-
+            // The seed disappear (in the soil).
 			rr.enabled = false;
-
-			soil = collision.gameObject.GetComponent<Soil>();
-
+            // The soil set to the plant is the object collided.
+			soil = collision.gameObject.GetComponent<SoilScript>();
+            // The seed is now planted.
 			isPlanted = true;
 		}
 	}
