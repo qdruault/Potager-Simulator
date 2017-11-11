@@ -2,24 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EarthSoilScript : SoilScript {
+public class ShovelScript : MonoBehaviour {
 
 	public GameObject dirtCubeModel;
 
-
 	// Use this for initialization
-	protected override void Start () {
-
-        base.Start();
-
-        this.humidityLevel = 1f;
-        //this.humidityLevel = 0.3f;
-        this.drySpeed = 0.001f;
-    }
-
+	void Start () {
+		
+	}
+	
 	// Update is called once per frame
-	protected override void Update () {
-		base.Update ();
+	void Update () {
+		
 	}
 
 	void OnTriggerExit(Collider other) {
@@ -30,11 +24,11 @@ public class EarthSoilScript : SoilScript {
 		Debug.Log (other.gameObject.name);
 
 		// Si la pelle touche un sol
-		if (other.gameObject.CompareTag("Shovel")){
+		if (other.gameObject.CompareTag("Soil")){
 
 			Debug.Log ("Dans le if soil");
-
-			Vector3 basePosition = other.gameObject.transform.position;
+	
+			Vector3 basePosition = transform.position;
 			basePosition.y += 0.02f;
 			Vector3 cubesPosition;
 
@@ -65,6 +59,4 @@ public class EarthSoilScript : SoilScript {
 			Instantiate(dirtCubeModel, cubesPosition, Quaternion.identity);
 		}
 	}
-
-
 }
