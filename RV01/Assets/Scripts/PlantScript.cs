@@ -80,8 +80,19 @@ public class PlantScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	public virtual void Update () {
-	}
+	public virtual void Update ()
+    {
+        if (isPlanted)
+        {
+            // Make the plant grows.
+            Grow();
+            // When the growth is over.
+            if (IsOver())
+            {
+                EndGrowth();
+            }
+        }
+    }
 
     // The plant grows.
     protected void Grow()
@@ -90,15 +101,10 @@ public class PlantScript : MonoBehaviour {
         float minHumidityRequired = this.optimalHumidity * 0.9f;
         float maxHumidityRequired = this.optimalHumidity * 1.1f;
 
-		Debug.Log ("Humidity : " + this.soil.HumidityLevel);
-		Debug.Log ("Min : " + minHumidityRequired);
-		Debug.Log ("Max : " + maxHumidityRequired);
-
         // If the soil is wet enough.
         if (this.soil.HumidityLevel > minHumidityRequired && this.soil.HumidityLevel < maxHumidityRequired)
         {
             this.growthProgress += this.growthSpeed;
-			Debug.Log ("Grow Progress : " + this.growthProgress);
             if (this.growthProgress > 1)
             {
                 this.growthProgress = 1;
@@ -128,7 +134,6 @@ public class PlantScript : MonoBehaviour {
 
 		// When the seed is "planted".
 		if (collision.gameObject.CompareTag ("Soil")) {
-			Debug.Log ("Plant hit the soil");
             // The seed disappear (in the soil).
 			rr.enabled = false;
             // The soil set to the plant is the object collided.

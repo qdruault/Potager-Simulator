@@ -5,19 +5,17 @@ using UnityEngine;
 public class BananaScript : PlantScript {
 
     // Use this for initialization
-    void Start()
+    public override void Start()
     {
-        this.optimalHumidity = 0.7f;
+        base.Start();
+        //this.optimalHumidity = 0.7f;
+        optimalHumidity = 1f;
         this.growthSpeed = 0.005f;
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
-        this.Grow();
-        if (this.IsOver())
-        {
-            Debug.Log("Here's a banana!");
-        }
+        base.Update();
     }
 }
