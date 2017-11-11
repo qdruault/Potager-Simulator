@@ -44,7 +44,7 @@ public class SoilScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	protected virtual void Update () {
-		
+        //this.Dry();
 	}
 
     /** Water the soil.
@@ -60,7 +60,7 @@ public class SoilScript : MonoBehaviour {
     }
 
     // The soils dries.
-    public void Dry()
+    private void Dry()
     {
         this.humidityLevel -= drySpeed;
         if (this.humidityLevel < 0)
