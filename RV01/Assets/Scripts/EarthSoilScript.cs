@@ -10,6 +10,7 @@ public class EarthSoilScript : SoilScript {
 	private float YThresholdDown;
 
 	private bool emptyPot = false;
+	private bool fullPot = false;
 
 
 	// Use this for initialization
@@ -30,6 +31,19 @@ public class EarthSoilScript : SoilScript {
 		base.Update ();
 	}
 
+	public void addDirtCube(){
+		if (!fullPot) {
+			transform.Translate (new Vector3 (0, 0.01f, 0));
+			if (emptyPot) {
+				emptyPot = false;
+			}
+			if (transform.position.y >= YThresholdUp) {
+				fullPot = true;
+				Debug.Log ("ATTEINT");
+			}
+		}
+	}
+
 	void OnTriggerExit(Collider other) {
 
 		if (!emptyPot) {
@@ -43,6 +57,9 @@ public class EarthSoilScript : SoilScript {
 
 				//baisser le sol
 				transform.Translate (new Vector3 (0, -0.05f, 0));
+				if (fullPot) {
+					fullPot = false;
+				}
 				if (transform.position.y <= YThresholdDown) {
 					emptyPot = true;
 					Debug.Log ("ATTEINT");
