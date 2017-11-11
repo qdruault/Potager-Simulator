@@ -36,54 +36,66 @@ public class RayCasting : MonoBehaviour
 		Ray ray = GetComponentInChildren<Camera>().ScreenPointToRay(Input.mousePosition);
 		Debug.DrawRay (ray.origin, ray.direction * RAYCASTLENGTH, Color.blue);
 		bool rayCasted = Physics.Raycast (ray, out hitInfo, RAYCASTLENGTH);
+        bool isDraggable = false;
 
+        // If an object is hit.
 		if (rayCasted) 
 		{
-			rayCasted = hitInfo.transform.CompareTag("Draggable");
-		}
-		// rayCasted est true si un objet possédant le tag draggable est détécté
+            // Draggable object.
+            if (hitInfo.transform.CompareTag("Draggable"))
+            {
+                isDraggable = true;
+            }
 
-		if (Input.GetMouseButtonDown (0))	// L'utilisateur vient de cliquer
-		{
-			if (rayCasted) 
-			{
-				attachedObject = hitInfo.rigidbody;
-				attachedObject.isKinematic = true;
-				distanceToObj = hitInfo.distance;
-				Cursor.SetCursor (cursorDragged, hotSpot, cursorMode);
-			}
-		} 
+			if (Input.GetMouseButtonDown(0))    // L'utilisateur vient de cliquer
+            {
+                if (isDraggable)
+                {
+                    attachedObject = hitInfo.rigidbody;
+                    attachedObject.isKinematic = true;
+                    distanceToObj = hitInfo.distance;
+                    Cursor.SetCursor(cursorDragged, hotSpot, cursorMode);
+                }
 
-		else if (Input.GetMouseButtonUp (0) && attachedObject != null) 	// L'utilisateur relache un objet saisi
-		{
-			attachedObject.isKinematic = false;
-			attachedObject = null;
+                // Simulate the watering.
+                if (hitInfo.transform.CompareTag("Soil"))
+                {
+                    // TODO: Changer ça pour vérifier qu'on tient bien un arrosoir par exemple.
+                    hitInfo.collider.gameObject.GetComponent<SoilScript>().Water(0.1f);
+                }
+            }
 
-			if (rayCasted) 
-			{
-				Cursor.SetCursor (cursorDraggable, hotSpot, cursorMode);
-			} 
-			else 
-			{
-				Cursor.SetCursor (cursorOff, hotSpot, cursorMode);
-			}
-		} 
+            else if (Input.GetMouseButtonUp(0) && attachedObject != null)   // L'utilisateur relache un objet saisi
+            {
+                attachedObject.isKinematic = false;
+                attachedObject = null;
 
-		else if (Input.GetMouseButton (0) && attachedObject != null) // L'utilisateur continue la saisie d'un objet
-		{
-			attachedObject.MovePosition (ray.origin + (ray.direction * distanceToObj));
-		} 
+                if (isDraggable)
+                {
+                    Cursor.SetCursor(cursorDraggable, hotSpot, cursorMode);
+                }
+                else
+                {
+                    Cursor.SetCursor(cursorOff, hotSpot, cursorMode);
+                }
+            }
 
-		else  // L'utilisateur bouge la sourie sans cliquer 
-		{
-			if (rayCasted) 
-			{
-				Cursor.SetCursor (cursorDraggable, hotSpot, cursorMode);
-			} 
-			else 
-			{
-				Cursor.SetCursor (cursorOff, hotSpot, cursorMode);
-			}
-		}
+            else if (Input.GetMouseButton(0) && attachedObject != null) // L'utilisateur continue la saisie d'un objet
+            {
+                attachedObject.MovePosition(ray.origin + (ray.direction * distanceToObj));
+            }
+
+            else  // L'utilisateur bouge la sourie sans cliquer 
+            {
+                if (isDraggable)
+                {
+                    Cursor.SetCursor(cursorDraggable, hotSpot, cursorMode);
+                }
+                else
+                {
+                    Cursor.SetCursor(cursorOff, hotSpot, cursorMode);
+                }
+            }
+        }
 	}
 }
