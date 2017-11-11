@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class EarthSoilScript : SoilScript
 {
-
 	// Use this for initialization
 	protected override void Start () {
 
-		base.Start ();
+        base.Start();
 
-		this.humidityLevel = 1f;
+        this.humidityLevel = 1f;
         //this.humidityLevel = 0.3f;
         this.drySpeed = 0.001f;
     }
