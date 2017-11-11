@@ -116,9 +116,12 @@ public class PlantScript : MonoBehaviour {
         // The position of the future plant.
 		Vector3 newPlantPosition = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
         // Create the plant at the right spot using the right prefab.
-		Instantiate (plantPrefab, newPlantPosition, Quaternion.identity);
+		GameObject newPlant = Instantiate (plantPrefab, newPlantPosition, Quaternion.identity);
+        // Few fixes to be able to "take" the new plant.
+        newPlant.tag = "Draggable";
+        newPlant.AddComponent<Rigidbody>();
         // Destroy the "seed".
-		Destroy (gameObject);
+        Destroy (gameObject);
 	}
 
 	void OnCollisionEnter(Collision collision){
