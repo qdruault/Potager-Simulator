@@ -6,13 +6,21 @@ public class EarthSoilScript : SoilScript {
 
 	public GameObject dirtCubeModel;
 
+	private float YThresholdUp;
+	private float YThresholdDown;
+
+	private bool emptyPot = false;
+
 
 	// Use this for initialization
 	protected override void Start () {
 
         base.Start();
 
-        this.humidityLevel = 1f;
+		YThresholdUp = transform.position.y;
+		YThresholdDown = YThresholdUp - 0.3f;
+
+		this.humidityLevel = 1f;
         //this.humidityLevel = 0.3f;
         this.drySpeed = 0.001f;
     }
@@ -24,45 +32,46 @@ public class EarthSoilScript : SoilScript {
 
 	void OnTriggerExit(Collider other) {
 
-		Debug.Log (gameObject.name);
-		Debug.Log ("Dans le trigger exit");
+		if (!emptyPot) {
 
-		Debug.Log (other.gameObject.name);
+			// Si la pelle touche un sol
+			if (other.gameObject.CompareTag ("Shovel")) {
 
-		// Si la pelle touche un sol
-		if (other.gameObject.CompareTag("Shovel")){
+				Vector3 basePosition = other.gameObject.transform.position;
+				basePosition.y += 0.02f;
+				Vector3 cubesPosition;
 
-			Debug.Log ("Dans le if soil");
+				//baisser le sol
+				transform.Translate (new Vector3 (0, -0.05f, 0));
+				if (transform.position.y <= YThresholdDown) {
+					emptyPot = true;
+					Debug.Log ("ATTEINT");
+				}
 
-			Vector3 basePosition = other.gameObject.transform.position;
-			basePosition.y += 0.02f;
-			Vector3 cubesPosition;
+				// Crée les petits cubes de terre
+				cubesPosition = basePosition;
+				cubesPosition.x += 0.05f;
+				cubesPosition.z += 0.05f;
+				Instantiate (dirtCubeModel, cubesPosition, Quaternion.identity);
 
-			//baisser le sol
+				cubesPosition = basePosition;
+				cubesPosition.x -= 0.05f;
+				cubesPosition.z -= 0.05f;
+				Instantiate (dirtCubeModel, cubesPosition, Quaternion.identity);
 
-			// Crée les petits cubes de terre
-			cubesPosition = basePosition;
-			cubesPosition.x += 0.05f;
-			cubesPosition.z += 0.05f;
-			Instantiate(dirtCubeModel, cubesPosition, Quaternion.identity);
+				cubesPosition = basePosition;
+				cubesPosition.x += 0.05f;
+				cubesPosition.z -= 0.05f;
+				Instantiate (dirtCubeModel, cubesPosition, Quaternion.identity);
 
-			cubesPosition = basePosition;
-			cubesPosition.x -= 0.05f;
-			cubesPosition.z -= 0.05f;
-			Instantiate(dirtCubeModel, cubesPosition, Quaternion.identity);
+				cubesPosition = basePosition;
+				cubesPosition.x -= 0.05f;
+				cubesPosition.z += 0.05f;
+				Instantiate (dirtCubeModel, cubesPosition, Quaternion.identity);
 
-			cubesPosition = basePosition;
-			cubesPosition.x += 0.05f;
-			cubesPosition.z -= 0.05f;
-			Instantiate(dirtCubeModel, cubesPosition, Quaternion.identity);
-
-			cubesPosition = basePosition;
-			cubesPosition.x -= 0.05f;
-			cubesPosition.z += 0.05f;
-			Instantiate(dirtCubeModel, cubesPosition, Quaternion.identity);
-
-			cubesPosition = basePosition;
-			Instantiate(dirtCubeModel, cubesPosition, Quaternion.identity);
+				cubesPosition = basePosition;
+				Instantiate (dirtCubeModel, cubesPosition, Quaternion.identity);
+			}
 		}
 	}
 
