@@ -6,7 +6,7 @@ public class DirtCubeScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		Destroy (gameObject, 60);
 	}
 	
 	// Update is called once per frame
