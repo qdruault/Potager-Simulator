@@ -18,8 +18,6 @@ public class MoldScript : MonoBehaviour {
 
 	void OnTriggerExit(Collider other) {
 
-		Debug.Log ("test");
-
 			// Si la pelle touche un sol
 			if (other.gameObject.CompareTag ("Shovel")) {
 
