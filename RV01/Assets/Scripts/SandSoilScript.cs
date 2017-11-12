@@ -6,13 +6,13 @@ public class SandSoilScript : SoilScript
 {
 
 	// Use this for initialization
-	void Start () {
-        this.humidityLevel = 0.05f;
-        this.drySpeed = 0.01f;
+	protected override void Start () {
+        humidityLevel = 0.05f;
+        drySpeed = 0.01f;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    protected override void Update () {
 		
 	}
 }
