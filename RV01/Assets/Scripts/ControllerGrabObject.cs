@@ -10,6 +10,9 @@ public class ControllerGrabObject : MonoBehaviour {
     // 2: Serves as a reference to the GameObject that the player is currently grabbing.
     private GameObject objectInHand;
 
+    private bool holdLevierTemperature;
+    private bool holdLevierEclairage;
+
     private SteamVR_Controller.Device Controller
     {
         get { return SteamVR_Controller.Input((int)trackedObj.index); }
@@ -25,6 +28,17 @@ public class ControllerGrabObject : MonoBehaviour {
             {
                 GrabObject();
             }
+
+            if (holdLevierEclairage)
+            {
+
+            }
+
+            if (holdLevierTemperature)
+            {
+
+            }
+
         }
 
         // 2: If the player releases the trigger and there’s an object attached to the controller, this releases it.
@@ -57,7 +71,17 @@ public class ControllerGrabObject : MonoBehaviour {
     // 1: When the trigger collider enters another, this sets up the other collider as a potential grab target.
     public void OnTriggerEnter(Collider other)
     {
-        SetCollidingObject(other);
+        if(other.CompareTag("Draggable"))
+        {
+            SetCollidingObject(other);
+        } else if (other.CompareTag("LevierTemperature"))
+        {
+            holdLevierTemperature = true;
+        }
+        else if (other.CompareTag("LevierEclairage"))
+        {
+            holdLevierEclairage = true;
+        }
     }
 
     // 2: Similar to section one, but different because it ensures that the target is set
@@ -65,12 +89,19 @@ public class ControllerGrabObject : MonoBehaviour {
     // Without this, the collision may fail or become buggy.
     public void OnTriggerStay(Collider other)
     {
-        SetCollidingObject(other);
+        if (other.CompareTag("Draggable"))
+        {
+            SetCollidingObject(other);
+        }
     }
 
     // 3: When the collider exits an object, abandoning an ungrabbed target, this code removes its target by setting it to null.
     public void OnTriggerExit(Collider other)
     {
+        // On lache tout.
+        holdLevierEclairage = false;
+        holdLevierTemperature = false;
+
         if (!collidingObject)
         {
             return;
