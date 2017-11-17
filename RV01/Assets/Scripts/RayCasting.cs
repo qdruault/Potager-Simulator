@@ -4,12 +4,12 @@ using System.Collections;
 /**
  * Cette classe permet de créer un rayon partant de la caméra en direction de la position du curseur dans l'environnement 3D.
  * L'objet portant se script peut saisir des objets, les manipuler et les déplacer grace au clique gauche de la souris.
- * Trois curseurs sont implémentés : 
+ * Trois curseurs sont implémentés :
  * Un curseur cursorOff lorsqu'aucun objet manipulable (tag "Draggable") n'est détecté par le rayon.
  * Un curseur cursorDraggable lorsqu'un objet manipulable est détécté mais non saisi
  * Un curseur cursorDragged lorsqu'un obhet est saisi
 **/
-public class RayCasting : MonoBehaviour 
+public class RayCasting : MonoBehaviour
 {
 
 	private float distanceToObj;	// Distance entre le personnage et l'objet saisi
@@ -22,14 +22,14 @@ public class RayCasting : MonoBehaviour
 	public Vector2 hotSpot = new Vector2(16, 16);	// Offset du centre du curseur
 	public Texture2D cursorOff, cursorDragged, cursorDraggable;	// Textures à appliquer aux curseurs
 
-	void Start () 
+	void Start ()
 	{
-		distanceToObj = -1;	
+		distanceToObj = -1;
 		Cursor.SetCursor (cursorOff, hotSpot, cursorMode);
 		Cursor.visible = true;
 	}
-	
-	void Update () 
+
+	void Update ()
 	{
 		// Le raycast attache un objet cliqué
 		RaycastHit hitInfo;
@@ -39,7 +39,7 @@ public class RayCasting : MonoBehaviour
         bool isDraggable = false;
 
         // If an object is hit.
-		if (rayCasted) 
+		if (rayCasted)
 		{
             // Draggable object.
             if (hitInfo.transform.CompareTag("Draggable"))
@@ -85,7 +85,7 @@ public class RayCasting : MonoBehaviour
                 attachedObject.MovePosition(ray.origin + (ray.direction * distanceToObj));
             }
 
-            else  // L'utilisateur bouge la sourie sans cliquer 
+            else  // L'utilisateur bouge la sourie sans cliquer
             {
                 if (isDraggable)
                 {
