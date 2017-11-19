@@ -8,6 +8,16 @@ public class CursorScript : MonoBehaviour {
     private float minX;
     private float maxX;
 
+    // Temperature value: 0 = cold / 1 = hot.
+    private float temperature;
+
+    public float Temperature
+    {
+        get
+        {
+            return temperature;
+        }
+    }
 
     // Use this for initialization
     void Start () {
@@ -15,6 +25,9 @@ public class CursorScript : MonoBehaviour {
         Transform railTransform = GameObject.Find("Rail").transform;
         minX = railTransform.position.x - railTransform.localScale.x / 2 + transform.localScale.x / 2;
         maxX = railTransform.position.x + railTransform.localScale.x / 2 - transform.localScale.x / 2;
+
+        // Init Temperature.
+        temperature = 0.5f;
     }
 	
 	// Update is called once per frame
@@ -27,5 +40,8 @@ public class CursorScript : MonoBehaviour {
         {
             transform.position = new Vector3(maxX, transform.position.y, transform.position.z);
         }
+
+        // Update the temperature value.
+        temperature = (transform.position.x - maxX) / (minX - maxX);
     }
 }
