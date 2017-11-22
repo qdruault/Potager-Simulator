@@ -30,8 +30,7 @@ public class LightBehaviour : MonoBehaviour {
 
 		// Change the intensity of the light
 		light.intensity = ComputeIntensity(illumination);
-		Debug.Log (light.intensity);
-
+	
 		// TEMPERATURE
         // Get the current temperature.
         float temperature = GameObject.Find("Cursor").GetComponent<CursorScript>().Temperature;

@@ -91,6 +91,11 @@ public class EarthSoilScript : SoilScript {
 			}
 		}
 	}
+		
+	public void Water(float water){
+		Debug.Log ("water");
+		base.Water (water);
+	}	
 
 
 }

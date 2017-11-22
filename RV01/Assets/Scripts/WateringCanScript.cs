@@ -20,7 +20,7 @@ public class WateringCanScript : MonoBehaviour {
 		// Si une goutte a été créée, timer
 		if (inTimer) {
 			waterDropTimer -= Time.deltaTime;
-			Debug.Log (waterDropTimer);
+			//Debug.Log (waterDropTimer);
 			if (waterDropTimer <= 0) {
 				inTimer = false;
 			}

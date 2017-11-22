@@ -14,45 +14,6 @@ public class SoilScript : MonoBehaviour {
     // The material to darken when the soil is wet.
     private Material material;
 
-    public float HumidityLevel
-    {
-        get
-        {
-            return humidityLevel;
-        }
-
-        set
-        {
-            humidityLevel = value;
-        }
-    }
-
-    public PlantScript Plant
-    {
-        get
-        {
-            return plant;
-        }
-
-        set
-        {
-            plant = value;
-        }
-    }
-
-    protected Material Material
-    {
-        get
-        {
-            return material;
-        }
-
-        set
-        {
-            material = value;
-        }
-    }
-
     // Use this for initialization
     protected virtual void Start () {
         material = GetComponent<Renderer>().material;
@@ -68,12 +29,13 @@ public class SoilScript : MonoBehaviour {
      * water : float between 0.0f and 1.0f
      * */
     public void Water(float water)
-    {
+    {		
         humidityLevel += water;
         if (humidityLevel > 1)
         {
             humidityLevel = 1;
         }
+		Debug.Log ("humidity level : " + humidityLevel);
     }
 
     // The soils dries.
@@ -94,4 +56,47 @@ public class SoilScript : MonoBehaviour {
         // Darken if the floor is wet.
         material.SetFloat("_Metallic", humidityLevel);
     }
+
+
+
+
+
+	public float HumidityLevel
+	{
+		get
+		{
+			return humidityLevel;
+		}
+
+		set
+		{
+			humidityLevel = value;
+		}
+	}
+
+	public PlantScript Plant
+	{
+		get
+		{
+			return plant;
+		}
+
+		set
+		{
+			plant = value;
+		}
+	}
+
+	protected Material Material
+	{
+		get
+		{
+			return material;
+		}
+
+		set
+		{
+			material = value;
+		}
+	}
 }
