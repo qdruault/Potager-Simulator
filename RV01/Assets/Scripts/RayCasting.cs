@@ -96,6 +96,12 @@ public class RayCasting : MonoBehaviour
 				if (Input.GetKeyDown (KeyCode.L)) {
 					attachedObject.gameObject.transform.Rotate(new Vector3 (0, 0, -10));
 				}
+				if (Input.GetKeyDown (KeyCode.U)) {
+					attachedObject.gameObject.transform.Rotate(new Vector3 (10, 0, 0));
+				}
+				if (Input.GetKeyDown (KeyCode.I)) {
+					attachedObject.gameObject.transform.Rotate(new Vector3 (-10, 0, 0));
+				}
             }
 
             else  // L'utilisateur bouge la souris sans cliquer
