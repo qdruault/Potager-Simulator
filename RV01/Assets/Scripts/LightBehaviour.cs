@@ -23,6 +23,16 @@ public class LightBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		// ILLUMINATION
+		// Get the current illumination.
+		float illumination = GameObject.Find("RotatorButton").GetComponent<RotatorButtonScript>().Illumination;
+
+		// Change the intensity of the light
+		light.intensity = ComputeIntensity(illumination);
+		Debug.Log (light.intensity);
+
+		// TEMPERATURE
         // Get the current temperature.
         float temperature = GameObject.Find("Cursor").GetComponent<CursorScript>().Temperature;
 
@@ -73,4 +83,15 @@ public class LightBehaviour : MonoBehaviour {
 
         return new Color(red, green, blue, 255.0f);
     }
+
+	private float ComputeIntensity(float pIllumination){
+
+		float intensityValue;
+
+		// 0 -> 0.25 & 1 -> 1.75
+		intensityValue = pIllumination * 1.5f;
+		intensityValue += 0.25f;
+
+		return intensityValue;
+	}
 }

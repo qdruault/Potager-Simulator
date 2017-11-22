@@ -85,7 +85,10 @@ public class RayCasting : MonoBehaviour
                 attachedObject.MovePosition(ray.origin + (ray.direction * distanceToObj));
 
 				if (Input.GetKeyDown (KeyCode.P)) {
-					attachedObject.gameObject.transform.Rotate(new Vector3 (0, 10, 0));
+					attachedObject.gameObject.transform.Rotate(new Vector3 (0, 2, 0));
+				}
+				if (Input.GetKeyDown (KeyCode.O)) {
+					attachedObject.gameObject.transform.Rotate(new Vector3 (0, -5, 0));
 				}
             }
 

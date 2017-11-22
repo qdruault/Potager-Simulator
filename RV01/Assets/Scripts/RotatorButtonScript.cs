@@ -20,8 +20,6 @@ public class RotatorButtonScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-		Debug.Log ("angle : " + transform.rotation.eulerAngles.y);
 
 		// Block the rotator.
 		if(transform.rotation.eulerAngles.y < minR)
@@ -33,7 +31,8 @@ public class RotatorButtonScript : MonoBehaviour {
 		}
 
 		// Update the illumination value.
-		illumination = (maxR - transform.rotation.eulerAngles.y) / (maxR - minR);
+		illumination = transform.rotation.eulerAngles.y - 5;
+		illumination /= 350;
 	}
 
 	public float Illumination
