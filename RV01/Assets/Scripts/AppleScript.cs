@@ -11,6 +11,8 @@ public class AppleScript : PlantScript {
 		optimalHumidity = 1f;
         //this.optimalHumidity = 0.4f;
         growthSpeed = 0.01f;
+
+		optimalIllumination = 1f;
 	}
 	
 	// Update is called once per frame

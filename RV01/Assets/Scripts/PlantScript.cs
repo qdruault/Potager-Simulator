@@ -19,61 +19,12 @@ public class PlantScript : MonoBehaviour {
 	protected MeshRenderer rr;
     // The prefab of the grown plant.
 	public GameObject plantPrefab;
-	
 
-    public SoilScript Soil
-    {
-        get
-        {
-            return soil;
-        }
+	// Illumination
+	protected float optimalIllumination;
 
-        set
-        {
-            soil = value;
-        }
-    }
 
-    public float OptimalHumidity
-    {
-        get
-        {
-            return optimalHumidity;
-        }
-
-        set
-        {
-            optimalHumidity = value;
-        }
-    }
-
-    public float GrowthSpeed
-    {
-        get
-        {
-            return growthSpeed;
-        }
-
-        set
-        {
-            growthSpeed = value;
-        }
-    }
-
-    public float GrowthProgress
-    {
-        get
-        {
-            return growthProgress;
-        }
-
-        set
-        {
-            growthProgress = value;
-        }
-    }
-
-    // Use this for initialization
+     // Use this for initialization
 	public virtual void Start () {
 		rb = GetComponent<Rigidbody> ();
 		rr = GetComponent<MeshRenderer> ();
@@ -101,8 +52,14 @@ public class PlantScript : MonoBehaviour {
         float minHumidityRequired = this.optimalHumidity * 0.9f;
         float maxHumidityRequired = this.optimalHumidity * 1.1f;
 
-        // If the soil is wet enough.
-        if (this.soil.HumidityLevel > minHumidityRequired && this.soil.HumidityLevel < maxHumidityRequired)
+		// MinIllumination
+		float minIllumination = this.optimalIllumination * 0.9f;
+		// Get the current illumination.
+		float currentIllumination = GameObject.Find("RotatorButton").GetComponent<RotatorButtonScript>().Illumination;
+
+
+        // If the soil is wet enough and there is enough light.
+		if (this.soil.HumidityLevel > minHumidityRequired && this.soil.HumidityLevel < maxHumidityRequired && currentIllumination > minIllumination)
         {
             this.growthProgress += this.growthSpeed;
             if (this.growthProgress > 1)
@@ -140,6 +97,59 @@ public class PlantScript : MonoBehaviour {
 			soil = collision.gameObject.GetComponent<SoilScript>();
             // The seed is now planted.
 			isPlanted = true;
+		}
+	}
+
+
+	public SoilScript Soil
+	{
+		get
+		{
+			return soil;
+		}
+
+		set
+		{
+			soil = value;
+		}
+	}
+
+	public float OptimalHumidity
+	{
+		get
+		{
+			return optimalHumidity;
+		}
+
+		set
+		{
+			optimalHumidity = value;
+		}
+	}
+
+	public float GrowthSpeed
+	{
+		get
+		{
+			return growthSpeed;
+		}
+
+		set
+		{
+			growthSpeed = value;
+		}
+	}
+
+	public float GrowthProgress
+	{
+		get
+		{
+			return growthProgress;
+		}
+
+		set
+		{
+			growthProgress = value;
 		}
 	}
 
