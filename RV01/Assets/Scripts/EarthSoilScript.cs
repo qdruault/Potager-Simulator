@@ -44,6 +44,13 @@ public class EarthSoilScript : SoilScript {
 		}
 	}
 
+	/*void OnTriggerEnter(Collider other) {
+		if (other.gameObject.CompareTag ("DirtCube")) {
+			Destroy (other.gameObject);
+			addDirtCube ();
+		}
+	}*/
+
 	void OnTriggerExit(Collider other) {
 
 		if (!emptyPot) {

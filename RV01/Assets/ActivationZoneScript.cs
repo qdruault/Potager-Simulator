@@ -16,7 +16,7 @@ public class ActivationZoneScript : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 
-		if (other.gameObject.CompareTag ("Shovel") || other.gameObject.CompareTag ("DirtCube"))
+		if (other.gameObject.CompareTag ("Shovel"))
 		{
 			transform.parent.gameObject.transform.GetChild (0).GetComponent<BoxCollider> ().isTrigger = true;
 			Debug.Log (transform.parent.gameObject.transform.GetChild (0).GetComponent<BoxCollider> ().isTrigger);
