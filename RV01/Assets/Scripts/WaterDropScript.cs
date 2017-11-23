@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WaterDropScript : MonoBehaviour {
 
-	private float waterValue = 0.002f;
+	private float waterValue = 0.005f;
 
 	// Use this for initialization
 	void Start () {
@@ -22,10 +22,4 @@ public class WaterDropScript : MonoBehaviour {
 			Destroy (gameObject);
 		}
 	}
-
-	/*void OnCollisionEnter(Collision other) {
-		if (!other.gameObject.CompareTag ("WaterDrop")) {
-			Destroy (gameObject);
-		}
-	}*/
 }

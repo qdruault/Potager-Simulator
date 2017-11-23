@@ -21,7 +21,7 @@ public class EarthSoilScript : SoilScript {
 		YThresholdUp = transform.position.y;
 		YThresholdDown = YThresholdUp - 0.3f;
 
-		this.humidityLevel = 1f;
+		this.humidityLevel = 0f;
         //this.humidityLevel = 0.3f;
         this.drySpeed = 0.001f;
     }
@@ -92,7 +92,7 @@ public class EarthSoilScript : SoilScript {
 		}
 	}
 		
-	public void Water(float water){
+	public override void Water(float water){
 		Debug.Log ("water");
 		base.Water (water);
 	}	

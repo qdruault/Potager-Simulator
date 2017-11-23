@@ -28,7 +28,7 @@ public class SoilScript : MonoBehaviour {
     /** Water the soil.
      * water : float between 0.0f and 1.0f
      * */
-    public void Water(float water)
+    public virtual void Water(float water)
     {		
         humidityLevel += water;
         if (humidityLevel > 1)

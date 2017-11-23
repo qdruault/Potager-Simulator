@@ -8,11 +8,11 @@ public class AppleScript : PlantScript {
 	public override void Start () {
 
 		base.Start ();
-		optimalHumidity = 1f;
-        //this.optimalHumidity = 0.4f;
+		//optimalHumidity = 1f;
+        optimalHumidity = 0f;
         growthSpeed = 0.01f;
 
-		optimalIllumination = 1f;
+		optimalIllumination = 0.5f;
 	}
 	
 	// Update is called once per frame

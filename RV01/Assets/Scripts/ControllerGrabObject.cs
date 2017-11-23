@@ -26,7 +26,7 @@ public class ControllerGrabObject : MonoBehaviour {
         {
             if (collidingObject)
             {
-                GrabObject();
+				GrabObject();
             }
 
             if (holdLevierEclairage)
@@ -71,16 +71,11 @@ public class ControllerGrabObject : MonoBehaviour {
     // 1: When the trigger collider enters another, this sets up the other collider as a potential grab target.
     public void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Draggable"))
+		Debug.Log ("Collider");
+		if(other.CompareTag("Draggable") || other.CompareTag("DirtCube"))
         {
+			Debug.Log ("Draggable");
             SetCollidingObject(other);
-        } else if (other.CompareTag("LevierTemperature"))
-        {
-            holdLevierTemperature = true;
-        }
-        else if (other.CompareTag("LevierEclairage"))
-        {
-            holdLevierEclairage = true;
         }
     }
 
@@ -89,7 +84,7 @@ public class ControllerGrabObject : MonoBehaviour {
     // Without this, the collision may fail or become buggy.
     public void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Draggable"))
+		if (other.CompareTag("Draggable") || other.CompareTag("DirtCube"))
         {
             SetCollidingObject(other);
         }

@@ -48,6 +48,7 @@ public class PlantScript : MonoBehaviour {
     // The plant grows.
     protected void Grow()
     {
+        Debug.Log(soil.HumidityLevel);
         // The values of humidity needed.
         float minHumidityRequired = this.optimalHumidity * 0.9f;
         float maxHumidityRequired = this.optimalHumidity * 1.1f;
@@ -59,7 +60,7 @@ public class PlantScript : MonoBehaviour {
 
 
         // If the soil is wet enough and there is enough light.
-		if (this.soil.HumidityLevel > minHumidityRequired && this.soil.HumidityLevel < maxHumidityRequired && currentIllumination > minIllumination)
+		if (this.soil.HumidityLevel >= minHumidityRequired && this.soil.HumidityLevel <= maxHumidityRequired && currentIllumination > minIllumination)
         {
             this.growthProgress += this.growthSpeed;
             if (this.growthProgress > 1)

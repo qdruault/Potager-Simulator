@@ -35,6 +35,11 @@ public class RotatorButtonScript : MonoBehaviour {
 		illumination /= 350;
 	}
 
+	void FixedUpdate() {
+		transform.localEulerAngles = new Vector3 (0, transform.localEulerAngles.y, 0);
+		GetComponent<Rigidbody> ().angularVelocity = Vector3.zero;
+	}
+
 	public float Illumination
 	{
 		get
