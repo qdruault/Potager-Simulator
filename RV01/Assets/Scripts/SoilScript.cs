@@ -14,45 +14,6 @@ public class SoilScript : MonoBehaviour {
     // The material to darken when the soil is wet.
     private Material material;
 
-    public float HumidityLevel
-    {
-        get
-        {
-            return humidityLevel;
-        }
-
-        set
-        {
-            humidityLevel = value;
-        }
-    }
-
-    public PlantScript Plant
-    {
-        get
-        {
-            return plant;
-        }
-
-        set
-        {
-            plant = value;
-        }
-    }
-
-    protected Material Material
-    {
-        get
-        {
-            return material;
-        }
-
-        set
-        {
-            material = value;
-        }
-    }
-
     // Use this for initialization
     protected virtual void Start () {
         material = GetComponent<Renderer>().material;
@@ -67,19 +28,23 @@ public class SoilScript : MonoBehaviour {
     /** Water the soil.
      * water : float between 0.0f and 1.0f
      * */
-    public void Water(float water)
-    {
+    public virtual void Water(float water)
+    {		
         humidityLevel += water;
         if (humidityLevel > 1)
         {
             humidityLevel = 1;
         }
+		Debug.Log ("humidity level : " + humidityLevel);
     }
 
     // The soils dries.
     private void Dry()
     {
-        humidityLevel -= drySpeed;
+        // Get the current temperature.
+        float temperature = GameObject.Find("CursorT").GetComponent<TCursorScript>().Temperature;
+        // The warmer the faster.
+        humidityLevel -= drySpeed * temperature;
         if (humidityLevel < 0)
         {
             humidityLevel = 0;
@@ -91,4 +56,47 @@ public class SoilScript : MonoBehaviour {
         // Darken if the floor is wet.
         material.SetFloat("_Metallic", humidityLevel);
     }
+
+
+
+
+
+	public float HumidityLevel
+	{
+		get
+		{
+			return humidityLevel;
+		}
+
+		set
+		{
+			humidityLevel = value;
+		}
+	}
+
+	public PlantScript Plant
+	{
+		get
+		{
+			return plant;
+		}
+
+		set
+		{
+			plant = value;
+		}
+	}
+
+	protected Material Material
+	{
+		get
+		{
+			return material;
+		}
+
+		set
+		{
+			material = value;
+		}
+	}
 }

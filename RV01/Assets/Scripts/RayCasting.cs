@@ -83,9 +83,28 @@ public class RayCasting : MonoBehaviour
             else if (Input.GetMouseButton(0) && attachedObject != null) // L'utilisateur continue la saisie d'un objet
             {
                 attachedObject.MovePosition(ray.origin + (ray.direction * distanceToObj));
+
+				if (Input.GetKeyDown (KeyCode.P)) {
+					attachedObject.gameObject.transform.Rotate(new Vector3 (0, 2, 0));
+				}
+				if (Input.GetKeyDown (KeyCode.O)) {
+					attachedObject.gameObject.transform.Rotate(new Vector3 (0, -5, 0));
+				}
+				if (Input.GetKeyDown (KeyCode.M)) {
+					attachedObject.gameObject.transform.Rotate(new Vector3 (0, 0, 10));
+				}
+				if (Input.GetKeyDown (KeyCode.L)) {
+					attachedObject.gameObject.transform.Rotate(new Vector3 (0, 0, -10));
+				}
+				if (Input.GetKeyDown (KeyCode.U)) {
+					attachedObject.gameObject.transform.Rotate(new Vector3 (10, 0, 0));
+				}
+				if (Input.GetKeyDown (KeyCode.I)) {
+					attachedObject.gameObject.transform.Rotate(new Vector3 (-10, 0, 0));
+				}
             }
 
-            else  // L'utilisateur bouge la sourie sans cliquer
+            else  // L'utilisateur bouge la souris sans cliquer
             {
                 if (isDraggable)
                 {

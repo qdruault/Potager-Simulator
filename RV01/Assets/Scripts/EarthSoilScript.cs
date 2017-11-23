@@ -12,16 +12,15 @@ public class EarthSoilScript : SoilScript {
 	private bool emptyPot = false;
 	private bool fullPot = false;
 
-
 	// Use this for initialization
 	protected override void Start () {
 
         base.Start();
 
 		YThresholdUp = transform.position.y;
-		YThresholdDown = YThresholdUp - 0.3f;
+		YThresholdDown = YThresholdUp - 0.15f;
 
-		this.humidityLevel = 1f;
+		this.humidityLevel = 0f;
         //this.humidityLevel = 0.3f;
         this.drySpeed = 0.001f;
     }
@@ -43,6 +42,13 @@ public class EarthSoilScript : SoilScript {
 			}
 		}
 	}
+
+	/*void OnTriggerEnter(Collider other) {
+		if (other.gameObject.CompareTag ("DirtCube")) {
+			Destroy (other.gameObject);
+			addDirtCube ();
+		}
+	}*/
 
 	void OnTriggerExit(Collider other) {
 
@@ -91,6 +97,34 @@ public class EarthSoilScript : SoilScript {
 			}
 		}
 	}
+		
+	public override void Water(float water){
+		Debug.Log ("water");
+		base.Water (water);
+	}	
 
+	public bool EmptyPot
+	{
+		get
+		{
+			return emptyPot;
+		}
+	}
+
+	public bool FullPot
+	{
+		get
+		{
+			return fullPot;
+		}
+	}
+
+	public float getYThresholdUp
+	{
+		get
+		{
+			return YThresholdUp;
+		}
+	}
 
 }

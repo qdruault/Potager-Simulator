@@ -14,9 +14,12 @@ public class DirtCubeScript : MonoBehaviour {
 		
 	}
 
-	void OnTriggerEnter(Collider other) {
+	void OnCollisionEnter(Collision other) {
+
+		Debug.Log ("Dans le collision");
 
 		if (other.gameObject.CompareTag ("Soil")) {
+			Debug.Log ("Dans le collision Soil");
 			Destroy (gameObject);
 			other.gameObject.GetComponent<EarthSoilScript> ().addDirtCube ();
 		}
