@@ -23,12 +23,12 @@ public class ScreenScript : MonoBehaviour {
 	void Update () {
 
 		// Update the temperature.
-		temperature = GameObject.Find("Cursor").GetComponent<CursorScript>().Temperature.ToString();
+		temperature = GameObject.Find("CursorT").GetComponent<TCursorScript>().Temperature.ToString();
 		temperatureText = temperatureTB.GetComponent<Text>();
 		temperatureText.text = temperature;
 			
 		// Update the illumination.
-		illumination = GameObject.Find("RotatorButton").GetComponent<RotatorButtonScript>().Illumination.ToString();
+		illumination = GameObject.Find("CursorI").GetComponent<ICursorScript>().Illumination.ToString();
 		illuminationText = illuminationTB.GetComponent<Text>();
 		illuminationText.text = illumination;
 	}

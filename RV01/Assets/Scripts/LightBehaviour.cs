@@ -26,14 +26,14 @@ public class LightBehaviour : MonoBehaviour {
 
 		// ILLUMINATION
 		// Get the current illumination.
-		float illumination = GameObject.Find("RotatorButton").GetComponent<RotatorButtonScript>().Illumination;
+		float illumination = GameObject.Find("CursorI").GetComponent<ICursorScript>().Illumination;
 
 		// Change the intensity of the light
 		light.intensity = ComputeIntensity(illumination);
 	
 		// TEMPERATURE
         // Get the current temperature.
-        float temperature = GameObject.Find("Cursor").GetComponent<CursorScript>().Temperature;
+        float temperature = GameObject.Find("CursorT").GetComponent<TCursorScript>().Temperature;
 
         // Change the color of the light.
         if(temperature <= 0.5f)

@@ -10,7 +10,7 @@ public class BeetScript : PlantScript {
 		base.Start ();
         optimalHumidity = 0.5f;
         optimalIllumination = 0.8f;
-        growthSpeed = 0.01f;
+        growthSpeed = 0.001f;
 	}
 	
 	// Update is called once per frame

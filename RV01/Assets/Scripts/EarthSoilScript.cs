@@ -18,7 +18,7 @@ public class EarthSoilScript : SoilScript {
         base.Start();
 
 		YThresholdUp = transform.position.y;
-		YThresholdDown = YThresholdUp - 0.3f;
+		YThresholdDown = YThresholdUp - 0.15f;
 
 		this.humidityLevel = 0f;
         //this.humidityLevel = 0.3f;

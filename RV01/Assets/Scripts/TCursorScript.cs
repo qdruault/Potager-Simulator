@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CursorScript : MonoBehaviour {
+public class TCursorScript : MonoBehaviour {
 
     // Bounds of the cursor.
     private float minX;
@@ -22,7 +22,7 @@ public class CursorScript : MonoBehaviour {
     // Use this for initialization
     void Start () {
         // Get the bounds relative to the Rail position and size.
-        Transform railTransform = GameObject.Find("Rail").transform;
+        Transform railTransform = GameObject.Find("RailT").transform;
         minX = railTransform.position.x - railTransform.localScale.x / 2 + transform.localScale.x;
         maxX = railTransform.position.x + railTransform.localScale.x / 2 - transform.localScale.x;
 

@@ -11,7 +11,7 @@ public class RadishScript : PlantScript {
         base.Start();
         optimalHumidity = 0.4f;
         optimalIllumination = 0.8f;
-        growthSpeed = 0.1f;
+        growthSpeed = 0.01f;
     }
 
     // Update is called once per frame

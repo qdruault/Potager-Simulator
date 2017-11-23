@@ -63,7 +63,7 @@ public class PlantScript : MonoBehaviour {
 		// MinIllumination
 		float minIllumination = this.optimalIllumination * 0.9f;
 		// Get the current illumination.
-		float currentIllumination = GameObject.Find("RotatorButton").GetComponent<RotatorButtonScript>().Illumination;
+		float currentIllumination = GameObject.Find("CursorI").GetComponent<ICursorScript>().Illumination;
 
 
         // If the soil is wet enough and there is enough light.
@@ -144,6 +144,19 @@ public class PlantScript : MonoBehaviour {
 		set
 		{
 			optimalHumidity = value;
+		}
+	}
+
+	public float OptimalIllumination
+	{
+		get
+		{
+			return optimalIllumination;
+		}
+
+		set
+		{
+			optimalIllumination = value;
 		}
 	}
 

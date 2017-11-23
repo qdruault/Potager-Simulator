@@ -10,7 +10,7 @@ public class StrawberryScript : PlantScript
         base.Start();
         optimalHumidity = 0.7f;
         optimalIllumination = 0.7f;
-        growthSpeed = 0.06f;
+        growthSpeed = 0.006f;
     }
 
     // Update is called once per frame

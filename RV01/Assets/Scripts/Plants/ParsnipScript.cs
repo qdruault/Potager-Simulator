@@ -11,7 +11,7 @@ public class ParsnipScript : PlantScript
         base.Start();
         optimalHumidity = 0.5f;
         optimalIllumination = 0.8f;
-        growthSpeed = 0.03f;
+        growthSpeed = 0.003f;
     }
 
     // Update is called once per frame

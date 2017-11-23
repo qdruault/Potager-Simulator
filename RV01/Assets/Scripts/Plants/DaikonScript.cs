@@ -11,7 +11,7 @@ public class DaikonScript : PlantScript
         base.Start();
         optimalHumidity = 0.8f;
         optimalIllumination = 0.5f;
-        growthSpeed = 0.08f;
+        growthSpeed = 0.008f;
     }
 
     // Update is called once per frame
