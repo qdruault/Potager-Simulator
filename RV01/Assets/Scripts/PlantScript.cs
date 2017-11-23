@@ -48,7 +48,7 @@ public class PlantScript : MonoBehaviour {
     // The plant grows.
     protected void Grow()
     {
-        Debug.Log(soil.HumidityLevel);
+        Debug.Log(growthProgress);
         // The values of humidity needed.
         float minHumidityRequired = this.optimalHumidity * 0.9f;
         float maxHumidityRequired = this.optimalHumidity * 1.1f;

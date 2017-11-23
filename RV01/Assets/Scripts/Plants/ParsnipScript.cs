@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Parsnip : PlantScript
+public class ParsnipScript : PlantScript
 {
     // Use this for initialization
     public override void Start()
