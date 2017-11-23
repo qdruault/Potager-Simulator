@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BananaScript : PlantScript {
+public class RadishScript : PlantScript {
 
     // Use this for initialization
     public override void Start()
     {
+
         base.Start();
-        //this.optimalHumidity = 0.7f;
-        optimalHumidity = 1f;
-        this.growthSpeed = 0.005f;
+        optimalHumidity = 0.4f;
+        optimalIllumination = 0.8f;
+        growthSpeed = 0.1f;
     }
 
     // Update is called once per frame
