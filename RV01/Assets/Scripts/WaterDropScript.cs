@@ -16,7 +16,7 @@ public class WaterDropScript : MonoBehaviour {
 
 	}
 
-	void OnTriggerEnter(Collider other) {
+	void OnCollisionEnter(Collision other) {
 		if (other.gameObject.CompareTag ("Soil")) {
 			other.gameObject.GetComponent<SoilScript> ().Water (waterValue);
 			Destroy (gameObject);

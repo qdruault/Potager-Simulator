@@ -17,6 +17,11 @@ public class PlantScript : MonoBehaviour {
 
 	protected Rigidbody rb;
 	protected MeshRenderer rr;
+
+	private EarthSoilScript earthSoil = null;
+
+	private SphereCollider sc;
+
     // The prefab of the grown plant.
 	public GameObject plantPrefab;
 
@@ -28,6 +33,7 @@ public class PlantScript : MonoBehaviour {
 	public virtual void Start () {
 		rb = GetComponent<Rigidbody> ();
 		rr = GetComponent<MeshRenderer> ();
+		sc = GetComponent<SphereCollider> ();
 	}
 	
 	// Update is called once per frame
@@ -35,13 +41,14 @@ public class PlantScript : MonoBehaviour {
     {
         if (isPlanted)
         {
-            // Make the plant grows.
-            Grow();
-            // When the growth is over.
-            if (IsOver())
-            {
-                EndGrowth();
-            }
+			if (earthSoil.FullPot) {
+				// Make the plant grows.
+				Grow ();
+				// When the growth is over.
+				if (IsOver ()) {
+					EndGrowth ();
+				}
+			}
         }
     }
 
@@ -77,8 +84,11 @@ public class PlantScript : MonoBehaviour {
     }
 
 	protected void EndGrowth(){
+
+		float Ypos = earthSoil.getYThresholdUp;
+
         // The position of the future plant.
-		Vector3 newPlantPosition = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
+		Vector3 newPlantPosition = new Vector3 (transform.position.x, Ypos + 1, transform.position.z);
         // Create the plant at the right spot using the right prefab.
 		GameObject newPlant = Instantiate (plantPrefab, newPlantPosition, Quaternion.identity);
         // Few fixes to be able to "take" the new plant.
@@ -92,12 +102,21 @@ public class PlantScript : MonoBehaviour {
 
 		// When the seed is "planted".
 		if (collision.gameObject.CompareTag ("Soil")) {
-            // The seed disappear (in the soil).
-			rr.enabled = false;
-            // The soil set to the plant is the object collided.
-			soil = collision.gameObject.GetComponent<SoilScript>();
-            // The seed is now planted.
-			isPlanted = true;
+
+			if (collision.gameObject.GetComponent<EarthSoilScript> ().EmptyPot) {
+				// The seed disappear (in the soil).
+				//rr.enabled = false;
+				// The soil set to the plant is the object collided.
+				soil = collision.gameObject.GetComponent<SoilScript> ();
+
+				earthSoil = collision.gameObject.GetComponent<EarthSoilScript> ();
+
+				rb.isKinematic = true;
+				sc.isTrigger = true;
+
+				// The seed is now planted.
+				isPlanted = true;
+			}
 		}
 	}
 

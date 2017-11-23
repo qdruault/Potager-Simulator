@@ -12,7 +12,6 @@ public class EarthSoilScript : SoilScript {
 	private bool emptyPot = false;
 	private bool fullPot = false;
 
-
 	// Use this for initialization
 	protected override void Start () {
 
@@ -104,5 +103,28 @@ public class EarthSoilScript : SoilScript {
 		base.Water (water);
 	}	
 
+	public bool EmptyPot
+	{
+		get
+		{
+			return emptyPot;
+		}
+	}
+
+	public bool FullPot
+	{
+		get
+		{
+			return fullPot;
+		}
+	}
+
+	public float getYThresholdUp
+	{
+		get
+		{
+			return YThresholdUp;
+		}
+	}
 
 }
