@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Humidity { Dry, Normal, Wet, VeryWet };
+
 public class PlantScript : MonoBehaviour {
 
     // The soil if there is one.
     protected SoilScript soil = null;
     // The optimal level of humidity to grow.
-    protected float optimalHumidity;
+    protected Humidity optimalHumidity;
     // The growth speed.
     protected float growthSpeed;
     // The growth progress.
@@ -56,23 +58,19 @@ public class PlantScript : MonoBehaviour {
     protected void Grow()
     {
         Debug.Log(growthProgress);
-        // The values of humidity needed.
-        float minHumidityRequired = this.optimalHumidity * 0.9f;
-        float maxHumidityRequired = this.optimalHumidity * 1.1f;
 
 		// MinIllumination
-		float minIllumination = this.optimalIllumination * 0.9f;
+		float minIllumination = optimalIllumination * 0.9f;
 		// Get the current illumination.
 		float currentIllumination = GameObject.Find("CursorI").GetComponent<ICursorScript>().Illumination;
 
-
         // If the soil is wet enough and there is enough light.
-		if (this.soil.HumidityLevel >= minHumidityRequired && this.soil.HumidityLevel <= maxHumidityRequired && currentIllumination > minIllumination)
+		if (soil.Humidity == optimalHumidity && currentIllumination > minIllumination)
         {
-            this.growthProgress += this.growthSpeed;
-            if (this.growthProgress > 1)
+            growthProgress += growthSpeed;
+            if (growthProgress > 1)
             {
-                this.growthProgress = 1;
+                growthProgress = 1;
             }
         }
     }
@@ -80,7 +78,7 @@ public class PlantScript : MonoBehaviour {
     // Over ?
     protected bool IsOver()
     {
-        return this.growthProgress >= 1;
+        return growthProgress >= 1;
     }
 
 	protected void EndGrowth(){
@@ -134,7 +132,7 @@ public class PlantScript : MonoBehaviour {
 		}
 	}
 
-	public float OptimalHumidity
+	public Humidity OptimalHumidity
 	{
 		get
 		{

@@ -8,7 +8,7 @@ public class StrawberryScript : PlantScript
     public override void Start()
     {
         base.Start();
-        optimalHumidity = 0.7f;
+        optimalHumidity = Humidity.Wet;
         optimalIllumination = 0.7f;
         growthSpeed = 0.006f;
     }
