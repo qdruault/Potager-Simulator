@@ -18,7 +18,7 @@ public class CanvasBeetScript : MonoBehaviour {
 	void Start () {
 
 		// Update the humidity.
-		humidity = "50 %";
+		humidity = "Normal";
 		humidityText = humidityTB.GetComponent<Text>();
 		humidityText.text = humidity;
 

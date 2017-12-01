@@ -18,7 +18,7 @@ public class CanvasStrawberryScript : MonoBehaviour {
 	void Start () {
 
 		// Update the humidity.
-		humidity = "70 %";
+		humidity = "Humide";
 		humidityText = humidityTB.GetComponent<Text>();
 		humidityText.text = humidity;
 
