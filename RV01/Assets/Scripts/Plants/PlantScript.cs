@@ -19,6 +19,8 @@ public class PlantScript : MonoBehaviour {
     protected float growthProgress = 0;
     // True if the plant is in the soil.
 	protected bool isPlanted = false;
+    // Malus.
+    protected int penalties;
 
 	protected Rigidbody rb;
 	protected MeshRenderer rr;
@@ -30,12 +32,16 @@ public class PlantScript : MonoBehaviour {
     // The prefab of the grown plant.
 	public GameObject plantPrefab;
 
-	// Illumination
-	protected float optimalIllumination;
+    // The prefab of the failed plant.
+    public GameObject failPrefab;
+
+    // Illumination
+    protected float optimalIllumination;
 
 
      // Use this for initialization
 	public virtual void Start () {
+        penalties = 0;
 		rb = GetComponent<Rigidbody> ();
 		rr = GetComponent<MeshRenderer> ();
 		sc = GetComponent<SphereCollider> ();
@@ -60,7 +66,7 @@ public class PlantScript : MonoBehaviour {
     // The plant grows.
     protected void Grow()
     {
-        Debug.Log(growthProgress);
+        Debug.Log("Progress: " + growthProgress);
 
 		// MinIllumination
 		float minIllumination = optimalIllumination * 0.9f;
@@ -83,7 +89,11 @@ public class PlantScript : MonoBehaviour {
             }
         } else
         {
-            //TODO: ajouter les malus ici.
+            // Ignore the malus il the plant has just been planted.
+            if (growthProgress > 0)
+            {
+                penalties++;
+            }
         }
     }
 
@@ -95,18 +105,40 @@ public class PlantScript : MonoBehaviour {
 
 	protected void EndGrowth(){
 
+        Debug.Log("Nombre de malus: " + penalties);
+
 		float Ypos = earthSoil.getYThresholdUp;
 
         // The position of the future plant.
-		Vector3 newPlantPosition = new Vector3 (transform.position.x, Ypos + 1, transform.position.z);
-        // Create the plant at the right spot using the right prefab.
-		GameObject newPlant = Instantiate (plantPrefab, newPlantPosition, Quaternion.identity);
+        Vector3 newPlantPosition = new Vector3(transform.position.x, Ypos + 1, transform.position.z);
+
+        GameObject newPlant;
+
+        // Good
+        if (penalties < 200)
+        {
+            // Create the plant at the right spot using the right prefab.
+            newPlant = Instantiate(plantPrefab, newPlantPosition, Quaternion.identity);
+
+            // Perfect if < 100
+            if (penalties > 100)
+            {
+                newPlant.transform.localScale = new Vector3(-0.008f * penalties + 1.8f, -0.008f * penalties + 1.8f, -0.008f * penalties + 1.8f);
+            }
+        } else
+        {
+            // Failed.
+            newPlant = Instantiate(failPrefab, newPlantPosition, Quaternion.identity);
+            newPlant.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+        }
+
         // Few fixes to be able to "take" the new plant.
         newPlant.tag = "Draggable";
         newPlant.AddComponent<Rigidbody>();
         // Destroy the "seed".
-        Destroy (gameObject);
-	}
+        Destroy(gameObject);
+
+    }
 
 	void OnCollisionEnter(Collision collision){
 

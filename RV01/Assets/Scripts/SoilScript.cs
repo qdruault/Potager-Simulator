@@ -51,7 +51,6 @@ public class SoilScript : MonoBehaviour {
         {
             humidityLevel = 1;
         }
-		Debug.Log ("humidity level : " + humidityLevel);
     }
 
     // The soils dries.
