@@ -18,7 +18,7 @@ public class DirtCubeScript : MonoBehaviour {
 
 		if (other.gameObject.CompareTag ("Soil")) {
 			Destroy (gameObject);
-			other.gameObject.GetComponent<EarthSoilScript> ().addDirtCube ();
+			other.gameObject.GetComponent<EarthSoilScript> ().AddDirtCube (transform.localScale.y);
 		}
 	}
 }

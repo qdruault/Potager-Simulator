@@ -5,6 +5,7 @@ using UnityEngine;
 public class MoldScript : MonoBehaviour {
 
 	public GameObject dirtCubeModel;
+    private float minY, maxY;
 
 	// Use this for initialization
 	void Start () {
@@ -16,39 +17,46 @@ public class MoldScript : MonoBehaviour {
 		
 	}
 
-	void OnTriggerExit(Collider other) {
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Shovel"))
+        {
+            if (other.gameObject.transform.position.y < minY)
+            {
+                minY = other.gameObject.transform.position.y;
+            }
+        }
+    }
 
-			// Si la pelle touche un sol
-			if (other.gameObject.CompareTag ("Shovel")) {
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Shovel"))
+        {
+            maxY = other.gameObject.transform.position.y;
+        }
+    }
 
-				Vector3 basePosition = other.gameObject.transform.position;
-				basePosition.y += 0.02f;
-				Vector3 cubesPosition;
+    void OnTriggerExit(Collider other) {
+        // Si la pelle touche un sol
+        if (other.gameObject.CompareTag("Shovel"))
+        {
+            float cubeSize = maxY - minY;
 
-				// Crée les petits cubes de terre
-				cubesPosition = basePosition;
-				cubesPosition.x += 0.05f;
-				cubesPosition.z += 0.05f;
-				Instantiate (dirtCubeModel, cubesPosition, Quaternion.identity);
+            Vector3 basePosition = other.gameObject.transform.position;
+            basePosition.y += 0.02f;
+            Vector3 cubesPosition;
 
-				cubesPosition = basePosition;
-				cubesPosition.x -= 0.05f;
-				cubesPosition.z -= 0.05f;
-				Instantiate (dirtCubeModel, cubesPosition, Quaternion.identity);
+            // Crée les petits cubes de terre
+            cubesPosition = basePosition;
+            cubesPosition.x += 0.05f;
+            cubesPosition.z += 0.05f;
+            GameObject cube = Instantiate(dirtCubeModel, cubesPosition, Quaternion.identity);
+            cube.transform.localScale = new Vector3(cubeSize, cubeSize, cubeSize);
 
-				cubesPosition = basePosition;
-				cubesPosition.x += 0.05f;
-				cubesPosition.z -= 0.05f;
-				Instantiate (dirtCubeModel, cubesPosition, Quaternion.identity);
-
-				cubesPosition = basePosition;
-				cubesPosition.x -= 0.05f;
-				cubesPosition.z += 0.05f;
-				Instantiate (dirtCubeModel, cubesPosition, Quaternion.identity);
-
-				cubesPosition = basePosition;
-				Instantiate (dirtCubeModel, cubesPosition, Quaternion.identity);
-			}
-		}
+            // Reset.
+            minY = 1000000000;
+            maxY = 1000000000;
+        }
+    }
 
 }
