@@ -10,6 +10,7 @@ public class DaikonScript : PlantScript
         base.Start();
         optimalHumidity = Humidity.VeryWet;
         optimalIllumination = 0.5f;
+        optimalTemperature = Temperature.Cold;
         growthSpeed = 0.008f;
     }
 

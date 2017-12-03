@@ -10,6 +10,7 @@ public class ParsnipScript : PlantScript
         base.Start();
         optimalHumidity = Humidity.Normal;
         optimalIllumination = 0.8f;
+        optimalTemperature = Temperature.Fresh;
         growthSpeed = 0.003f;
     }
 

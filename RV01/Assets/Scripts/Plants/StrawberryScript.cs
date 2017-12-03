@@ -10,6 +10,7 @@ public class StrawberryScript : PlantScript
         base.Start();
         optimalHumidity = Humidity.Wet;
         optimalIllumination = 0.7f;
+        optimalTemperature = Temperature.Hot;
         growthSpeed = 0.006f;
     }
 

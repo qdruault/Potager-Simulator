@@ -33,7 +33,7 @@ public class LightBehaviour : MonoBehaviour {
 	
 		// TEMPERATURE
         // Get the current temperature.
-        float temperature = GameObject.Find("CursorT").GetComponent<TCursorScript>().Temperature;
+        float temperature = GameObject.Find("CursorT").GetComponent<TCursorScript>().TemperatureLevel;
 
         // Change the color of the light.
         if(temperature <= 0.5f)

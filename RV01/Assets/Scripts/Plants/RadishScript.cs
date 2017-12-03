@@ -10,6 +10,7 @@ public class RadishScript : PlantScript {
         base.Start();
         optimalHumidity = Humidity.Normal;
         optimalIllumination = 0.8f;
+        optimalTemperature = Temperature.Temperate;
         growthSpeed = 0.01f;
     }
 

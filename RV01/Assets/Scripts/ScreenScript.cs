@@ -22,7 +22,7 @@ public class ScreenScript : MonoBehaviour {
 	void Update () {
 
 		// Update the temperature.
-		float temperature = GameObject.Find("CursorT").GetComponent<TCursorScript>().Temperature * 40.0f;
+		float temperature = GameObject.Find("CursorT").GetComponent<TCursorScript>().TemperatureLevel * 40.0f;
 		temperatureText.text = System.Math.Round(temperature, 1).ToString() + " °C";
 			
 		// Update the illumination.

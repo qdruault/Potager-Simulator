@@ -58,7 +58,7 @@ public class SoilScript : MonoBehaviour {
     private void Dry()
     {
         // Get the current temperature.
-        float temperature = GameObject.Find("CursorT").GetComponent<TCursorScript>().Temperature;
+        float temperature = GameObject.Find("CursorT").GetComponent<TCursorScript>().TemperatureLevel;
         // The warmer the faster.
         humidityLevel -= drySpeed * temperature;
         if (humidityLevel < 0)

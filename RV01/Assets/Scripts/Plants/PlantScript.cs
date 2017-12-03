@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum Humidity { Dry, Normal, Wet, VeryWet };
+public enum Temperature { Cold, Fresh, Temperate, Hot };
 
 public class PlantScript : MonoBehaviour {
 
@@ -10,6 +11,8 @@ public class PlantScript : MonoBehaviour {
     protected SoilScript soil = null;
     // The optimal level of humidity to grow.
     protected Humidity optimalHumidity;
+    // The optimal temperature to grow.
+    protected Temperature optimalTemperature;
     // The growth speed.
     protected float growthSpeed;
     // The growth progress.
@@ -63,15 +66,24 @@ public class PlantScript : MonoBehaviour {
 		float minIllumination = optimalIllumination * 0.9f;
 		// Get the current illumination.
 		float currentIllumination = GameObject.Find("CursorI").GetComponent<ICursorScript>().Illumination;
+        // Get the current temperature.
+        Temperature currentTemperature = GameObject.Find("CursorT").GetComponent<TCursorScript>().Temperature;
 
-        // If the soil is wet enough and there is enough light.
-		if (soil.Humidity == optimalHumidity && currentIllumination > minIllumination)
+        Debug.Log("Illumination. Needed : " + minIllumination + " réelle : " + currentIllumination);
+        Debug.Log("Humidity. Needed : " + optimalHumidity + " réelle : " + soil.Humidity);
+        Debug.Log("Temperature. Needed : " + OptimalTemperature + " réelle : " + currentTemperature);
+
+        // If the soil is wet enough and there is enough light and ther is the riht temperature.
+        if (soil.Humidity == optimalHumidity && currentIllumination >= minIllumination && currentTemperature == optimalTemperature)
         {
             growthProgress += growthSpeed;
             if (growthProgress > 1)
             {
                 growthProgress = 1;
             }
+        } else
+        {
+            //TODO: ajouter les malus ici.
         }
     }
 
@@ -145,7 +157,20 @@ public class PlantScript : MonoBehaviour {
 		}
 	}
 
-	public float OptimalIllumination
+    public Temperature OptimalTemperature
+    {
+        get
+        {
+            return optimalTemperature;
+        }
+
+        set
+        {
+            optimalTemperature = value;
+        }
+    }
+
+    public float OptimalIllumination
 	{
 		get
 		{
