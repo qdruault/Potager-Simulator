@@ -7,10 +7,10 @@ public class DaikonScript : PlantScript
     // Use this for initialization
     public override void Start()
     {
-
         base.Start();
-        optimalHumidity = 0.8f;
+        optimalHumidity = Humidity.VeryWet;
         optimalIllumination = 0.5f;
+        optimalTemperature = Temperature.Cold;
         growthSpeed = 0.008f;
     }
 

@@ -6,6 +6,7 @@ public class SoilScript : MonoBehaviour {
 
     // Humidity of the soil.
     protected float humidityLevel;
+    protected Humidity humidity; 
     // How fast the soil dry.
     protected float drySpeed;
     // The plant if there is one.
@@ -21,6 +22,21 @@ public class SoilScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	protected virtual void Update () {
+        if (humidityLevel < 0.25)
+        {
+            humidity = Humidity.Dry;
+        } else if (humidityLevel < 0.50)
+        {
+            humidity = Humidity.Normal;
+        }
+        else if (humidityLevel < 0.75)
+        {
+            humidity = Humidity.Wet;
+        }
+        else
+        {
+            humidity = Humidity.VeryWet;
+        }
         Dry();
         UpdateMaterial();
 	}
@@ -42,7 +58,7 @@ public class SoilScript : MonoBehaviour {
     private void Dry()
     {
         // Get the current temperature.
-        float temperature = GameObject.Find("CursorT").GetComponent<TCursorScript>().Temperature;
+        float temperature = GameObject.Find("CursorT").GetComponent<TCursorScript>().TemperatureLevel;
         // The warmer the faster.
         humidityLevel -= drySpeed * temperature;
         if (humidityLevel < 0)
@@ -58,10 +74,21 @@ public class SoilScript : MonoBehaviour {
     }
 
 
+    public Humidity Humidity
+    {
+        get
+        {
+            return humidity;
+        }
+
+        set
+        {
+            humidity = value;
+        }
+    }
 
 
-
-	public float HumidityLevel
+    public float HumidityLevel
 	{
 		get
 		{

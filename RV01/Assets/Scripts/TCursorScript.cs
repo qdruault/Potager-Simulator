@@ -9,13 +9,22 @@ public class TCursorScript : MonoBehaviour {
     private float maxX;
 
     // Temperature value: 0 = cold / 1 = hot.
-    private float temperature;
+    private float temperatureLevel;
+    private Temperature temperature;
 
-    public float Temperature
+    public Temperature Temperature
     {
         get
         {
             return temperature;
+        }
+    }
+
+    public float TemperatureLevel
+    {
+        get
+        {
+            return temperatureLevel;
         }
     }
 
@@ -27,7 +36,7 @@ public class TCursorScript : MonoBehaviour {
         maxX = railTransform.position.x + railTransform.localScale.x / 2 - transform.localScale.x;
 
         // Init Temperature.
-        temperature = 0.5f;
+        temperatureLevel = 0.5f;
     }
 	
 	// Update is called once per frame
@@ -45,6 +54,22 @@ public class TCursorScript : MonoBehaviour {
 		GetComponent<Rigidbody>().velocity = Vector3.zero;
 
         // Update the temperature value.
-        temperature = (transform.position.x - maxX) / (minX - maxX);
+        temperatureLevel = (transform.position.x - maxX) / (minX - maxX);
+
+        if(temperatureLevel < 0.25f)
+        {
+            temperature = Temperature.Cold;
+        } else if (temperatureLevel < 0.5f)
+        {
+            temperature = Temperature.Fresh;
+        }
+        else if (temperatureLevel < 0.75f)
+        {
+            temperature = Temperature.Temperate;
+        }
+        else
+        {
+            temperature = Temperature.Hot;
+        }
     }
 }

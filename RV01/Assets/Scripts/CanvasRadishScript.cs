@@ -18,7 +18,7 @@ public class CanvasRadishScript : MonoBehaviour {
 	void Start () {
 
 		// Update the humidity.
-		humidity = "40 %";
+		humidity = "Normal";
 		humidityText = humidityTB.GetComponent<Text>();
 		humidityText.text = humidity;
 

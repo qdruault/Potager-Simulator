@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Humidity { Dry, Normal, Wet, VeryWet };
+public enum Temperature { Cold, Fresh, Temperate, Hot };
+
 public class PlantScript : MonoBehaviour {
 
     // The soil if there is one.
     protected SoilScript soil = null;
     // The optimal level of humidity to grow.
-    protected float optimalHumidity;
+    protected Humidity optimalHumidity;
+    // The optimal temperature to grow.
+    protected Temperature optimalTemperature;
     // The growth speed.
     protected float growthSpeed;
     // The growth progress.
@@ -56,31 +61,36 @@ public class PlantScript : MonoBehaviour {
     protected void Grow()
     {
         Debug.Log(growthProgress);
-        // The values of humidity needed.
-        float minHumidityRequired = this.optimalHumidity * 0.9f;
-        float maxHumidityRequired = this.optimalHumidity * 1.1f;
 
 		// MinIllumination
-		float minIllumination = this.optimalIllumination * 0.9f;
+		float minIllumination = optimalIllumination * 0.9f;
 		// Get the current illumination.
 		float currentIllumination = GameObject.Find("CursorI").GetComponent<ICursorScript>().Illumination;
+        // Get the current temperature.
+        Temperature currentTemperature = GameObject.Find("CursorT").GetComponent<TCursorScript>().Temperature;
 
+        Debug.Log("Illumination. Needed : " + minIllumination + " réelle : " + currentIllumination);
+        Debug.Log("Humidity. Needed : " + optimalHumidity + " réelle : " + soil.Humidity);
+        Debug.Log("Temperature. Needed : " + OptimalTemperature + " réelle : " + currentTemperature);
 
-        // If the soil is wet enough and there is enough light.
-		if (this.soil.HumidityLevel >= minHumidityRequired && this.soil.HumidityLevel <= maxHumidityRequired && currentIllumination > minIllumination)
+        // If the soil is wet enough and there is enough light and ther is the riht temperature.
+        if (soil.Humidity == optimalHumidity && currentIllumination >= minIllumination && currentTemperature == optimalTemperature)
         {
-            this.growthProgress += this.growthSpeed;
-            if (this.growthProgress > 1)
+            growthProgress += growthSpeed;
+            if (growthProgress > 1)
             {
-                this.growthProgress = 1;
+                growthProgress = 1;
             }
+        } else
+        {
+            //TODO: ajouter les malus ici.
         }
     }
 
     // Over ?
     protected bool IsOver()
     {
-        return this.growthProgress >= 1;
+        return growthProgress >= 1;
     }
 
 	protected void EndGrowth(){
@@ -134,7 +144,7 @@ public class PlantScript : MonoBehaviour {
 		}
 	}
 
-	public float OptimalHumidity
+	public Humidity OptimalHumidity
 	{
 		get
 		{
@@ -147,7 +157,20 @@ public class PlantScript : MonoBehaviour {
 		}
 	}
 
-	public float OptimalIllumination
+    public Temperature OptimalTemperature
+    {
+        get
+        {
+            return optimalTemperature;
+        }
+
+        set
+        {
+            optimalTemperature = value;
+        }
+    }
+
+    public float OptimalIllumination
 	{
 		get
 		{

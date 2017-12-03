@@ -7,10 +7,10 @@ public class RadishScript : PlantScript {
     // Use this for initialization
     public override void Start()
     {
-
         base.Start();
-        optimalHumidity = 0.4f;
+        optimalHumidity = Humidity.Normal;
         optimalIllumination = 0.8f;
+        optimalTemperature = Temperature.Temperate;
         growthSpeed = 0.01f;
     }
 

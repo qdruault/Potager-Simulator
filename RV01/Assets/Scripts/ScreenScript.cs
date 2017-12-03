@@ -11,25 +11,22 @@ public class ScreenScript : MonoBehaviour {
 	private Text temperatureText;
 	private Text illuminationText;
 
-	private string temperature;
-	private string illumination;
-
 	// Use this for initialization
 	void Start () {
-		
-	}
+        // Store the textboxes.
+        temperatureText = temperatureTB.GetComponent<Text>();
+        illuminationText = illuminationTB.GetComponent<Text>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
 
 		// Update the temperature.
-		temperature = GameObject.Find("CursorT").GetComponent<TCursorScript>().Temperature.ToString();
-		temperatureText = temperatureTB.GetComponent<Text>();
-		temperatureText.text = temperature;
+		float temperature = GameObject.Find("CursorT").GetComponent<TCursorScript>().TemperatureLevel * 40.0f;
+		temperatureText.text = System.Math.Round(temperature, 1).ToString() + " °C";
 			
 		// Update the illumination.
-		illumination = GameObject.Find("CursorI").GetComponent<ICursorScript>().Illumination.ToString();
-		illuminationText = illuminationTB.GetComponent<Text>();
-		illuminationText.text = illumination;
+		float illumination = GameObject.Find("CursorI").GetComponent<ICursorScript>().Illumination * 100.0f;
+		illuminationText.text = System.Math.Round(illumination, 1).ToString() + "%"; ;
 	}
 }

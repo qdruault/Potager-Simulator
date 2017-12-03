@@ -9,10 +9,6 @@ public class SoilBoxScreenScript : MonoBehaviour {
 
 	private Text humidityText;
 
-	private float humidityValue;
-
-	private string humidity;
-
 	// Use this for initialization
 	void Start () {
 		
@@ -21,11 +17,25 @@ public class SoilBoxScreenScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		// Update the humidity.
-		humidityValue = (int)Mathf.Round(this.transform.parent.gameObject.transform.GetChild(0).GetComponent<EarthSoilScript>().HumidityLevel * 100);
-		humidity = humidityValue.ToString ();
-		humidityText = humidityTB.GetComponent<Text>();
-		humidityText.text = humidity;
-		
-	}
+        humidityText = humidityTB.GetComponent<Text>();
+        // Update the humidity.
+        float humidityValue = (int)Mathf.Round(this.transform.parent.gameObject.transform.GetChild(0).GetComponent<EarthSoilScript>().HumidityLevel * 100);
+        if (humidityValue < 25)
+        {
+            humidityText.text = "Sec";
+        } else if (humidityValue < 50)
+        {
+            humidityText.text = "Normal";
+        }
+        else if (humidityValue < 75)
+        {
+            humidityText.text = "Humide";
+        }
+        else
+        {
+            humidityText.text = "Très humide";
+        }
+
+
+    }
 }

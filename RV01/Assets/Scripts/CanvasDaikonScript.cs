@@ -18,7 +18,7 @@ public class CanvasDaikonScript : MonoBehaviour {
 	void Start () {
 
 		// Update the humidity.
-		humidity = "80 %";
+		humidity = "Très humide";
 		humidityText = humidityTB.GetComponent<Text>();
 		humidityText.text = humidity;
 
