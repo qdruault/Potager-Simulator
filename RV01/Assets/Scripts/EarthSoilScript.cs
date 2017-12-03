@@ -96,26 +96,7 @@ public class EarthSoilScript : SoilScript {
 				cubesPosition.z += 0.05f;
 				GameObject cube = Instantiate (dirtCubeModel, cubesPosition, Quaternion.identity);
                 cube.transform.localScale = new Vector3(cubeSize, cubeSize, cubeSize);
-
-                /*
-				cubesPosition = basePosition;
-				cubesPosition.x -= 0.05f;
-				cubesPosition.z -= 0.05f;
-				Instantiate (dirtCubeModel, cubesPosition, Quaternion.identity);
-
-				cubesPosition = basePosition;
-				cubesPosition.x += 0.05f;
-				cubesPosition.z -= 0.05f;
-				Instantiate (dirtCubeModel, cubesPosition, Quaternion.identity);
-
-				cubesPosition = basePosition;
-				cubesPosition.x -= 0.05f;
-				cubesPosition.z += 0.05f;
-				Instantiate (dirtCubeModel, cubesPosition, Quaternion.identity);
-
-				cubesPosition = basePosition;
-				Instantiate (dirtCubeModel, cubesPosition, Quaternion.identity);
-                */
+                
                 // Reset.
                 minY = 1000000000;
                 maxY = 1000000000;
@@ -124,7 +105,6 @@ public class EarthSoilScript : SoilScript {
 	}
 		
 	public override void Water(float water){
-		Debug.Log ("water");
 		base.Water (water);
 	}	
 
