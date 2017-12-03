@@ -12,17 +12,22 @@ public class EarthSoilScript : SoilScript {
 	private bool emptyPot = false;
 	private bool fullPot = false;
 
-	// Use this for initialization
-	protected override void Start () {
+    private float minY;
+    private float maxY;
+
+    // Use this for initialization
+    protected override void Start () {
 
         base.Start();
 
 		YThresholdUp = transform.position.y;
 		YThresholdDown = YThresholdUp - 0.1f;
 
-		this.humidityLevel = 0f;
-        //this.humidityLevel = 0.3f;
-        this.drySpeed = 0.001f;
+		humidityLevel = 0f;
+        drySpeed = 0.001f;
+
+        minY = 1000000000;
+        maxY = 1000000000;
     }
 
 	// Update is called once per frame
@@ -30,9 +35,9 @@ public class EarthSoilScript : SoilScript {
 		base.Update ();
 	}
 
-	public void addDirtCube(){
+	public void AddDirtCube(float pSize){
 		if (!fullPot) {
-			transform.Translate (new Vector3 (0, 0.01f, 0));
+			transform.Translate (new Vector3 (0, pSize / 10.0f, 0));
 			if (emptyPot) {
 				emptyPot = false;
 			}
@@ -43,26 +48,40 @@ public class EarthSoilScript : SoilScript {
 		}
 	}
 
-	/*void OnTriggerEnter(Collider other) {
-		if (other.gameObject.CompareTag ("DirtCube")) {
-			Destroy (other.gameObject);
-			addDirtCube ();
-		}
-	}*/
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Shovel"))
+        {
+            if (other.gameObject.transform.position.y < minY)
+            {
+                minY = other.gameObject.transform.position.y;
+            }
+        }
+    }
 
-	void OnTriggerExit(Collider other) {
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Shovel"))
+        {
+            maxY = other.gameObject.transform.position.y;
+        }
+    }
+
+    void OnTriggerExit(Collider other) {
 
 		if (!emptyPot) {
 
 			// Si la pelle touche un sol
 			if (other.gameObject.CompareTag ("Shovel")) {
 
-				Vector3 basePosition = other.gameObject.transform.position;
+                float cubeSize = maxY - minY;
+
+                Vector3 basePosition = other.gameObject.transform.position;
 				basePosition.y += 0.02f;
 				Vector3 cubesPosition;
 
 				//baisser le sol
-				transform.Translate (new Vector3 (0, -0.05f, 0));
+				transform.Translate (new Vector3 (0, cubeSize / -10.0f, 0));
 				if (fullPot) {
 					fullPot = false;
 				}
@@ -75,8 +94,10 @@ public class EarthSoilScript : SoilScript {
 				cubesPosition = basePosition;
 				cubesPosition.x += 0.05f;
 				cubesPosition.z += 0.05f;
-				Instantiate (dirtCubeModel, cubesPosition, Quaternion.identity);
+				GameObject cube = Instantiate (dirtCubeModel, cubesPosition, Quaternion.identity);
+                cube.transform.localScale = new Vector3(cubeSize, cubeSize, cubeSize);
 
+                /*
 				cubesPosition = basePosition;
 				cubesPosition.x -= 0.05f;
 				cubesPosition.z -= 0.05f;
@@ -94,7 +115,11 @@ public class EarthSoilScript : SoilScript {
 
 				cubesPosition = basePosition;
 				Instantiate (dirtCubeModel, cubesPosition, Quaternion.identity);
-			}
+                */
+                // Reset.
+                minY = 1000000000;
+                maxY = 1000000000;
+            }
 		}
 	}
 		
