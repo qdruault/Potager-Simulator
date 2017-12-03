@@ -19,7 +19,6 @@ public class ActivationZoneScript : MonoBehaviour {
 		if (other.gameObject.CompareTag ("Shovel"))
 		{
 			transform.parent.gameObject.transform.GetChild (0).GetComponent<BoxCollider> ().isTrigger = true;
-			Debug.Log (transform.parent.gameObject.transform.GetChild (0).GetComponent<BoxCollider> ().isTrigger);
 		}
 
 	}
@@ -29,7 +28,6 @@ public class ActivationZoneScript : MonoBehaviour {
 		if (other.gameObject.CompareTag ("Shovel"))
 		{
 			transform.parent.gameObject.transform.GetChild (0).GetComponent<BoxCollider> ().isTrigger = false;
-			Debug.Log (transform.parent.gameObject.transform.GetChild (0).GetComponent<BoxCollider> ().isTrigger);
 		}
 
 	}
