@@ -97,6 +97,11 @@ public class PlantScript : MonoBehaviour {
         }
     }
 
+    public void addPenalties()
+    {
+        penalties++;
+    }
+
     // Over ?
     protected bool IsOver()
     {
@@ -241,4 +246,12 @@ public class PlantScript : MonoBehaviour {
 		}
 	}
 
-}
+    public bool IsPlanted
+    {
+        get
+        {
+            return isPlanted;
+        }
+    }
+
+    }
