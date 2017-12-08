@@ -7,12 +7,15 @@ public class CanvasBeetScript : MonoBehaviour {
 
 	public GameObject humidityTB;
 	public GameObject illuminationTB;
+    public GameObject temperatureTB;
 
-	private Text humidityText;
+    private Text humidityText;
 	private Text illuminationText;
+    private Text temperatureText;
 
 	private string humidity;
 	private string illumination;
+    private string temperature;
 
 	// Use this for initialization
 	void Start () {
@@ -26,6 +29,11 @@ public class CanvasBeetScript : MonoBehaviour {
 		illumination = "80 %";
 		illuminationText = illuminationTB.GetComponent<Text>();
 		illuminationText.text = illumination;
+
+        // Update the temperature.
+        temperature = "Frais";
+        temperatureText = temperatureTB.GetComponent<Text>();
+        temperatureText.text = temperature;
 
 	}
 

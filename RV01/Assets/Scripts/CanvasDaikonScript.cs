@@ -5,17 +5,20 @@ using UnityEngine.UI;
 
 public class CanvasDaikonScript : MonoBehaviour {
 
-	public GameObject humidityTB;
-	public GameObject illuminationTB;
+    public GameObject humidityTB;
+    public GameObject illuminationTB;
+    public GameObject temperatureTB;
 
-	private Text humidityText;
-	private Text illuminationText;
+    private Text humidityText;
+    private Text illuminationText;
+    private Text temperatureText;
 
-	private string humidity;
-	private string illumination;
+    private string humidity;
+    private string illumination;
+    private string temperature;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 
 		// Update the humidity.
 		humidity = "Très humide";
@@ -27,7 +30,12 @@ public class CanvasDaikonScript : MonoBehaviour {
 		illuminationText = illuminationTB.GetComponent<Text>();
 		illuminationText.text = illumination;
 
-	}
+        // Update the temperature.
+        temperature = "Froid";
+        temperatureText = temperatureTB.GetComponent<Text>();
+        temperatureText.text = temperature;
+
+    }
 
 	// Update is called once per frame
 	void Update () {
