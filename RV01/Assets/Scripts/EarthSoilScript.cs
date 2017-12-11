@@ -5,6 +5,7 @@ using UnityEngine;
 public class EarthSoilScript : SoilScript {
 
 	public GameObject dirtCubeModel;
+	public GameObject weedsModel;
 
 	private float YThresholdUp;
 	private float YThresholdDown;
@@ -14,6 +15,8 @@ public class EarthSoilScript : SoilScript {
 
     private float minY;
     private float maxY;
+
+	private int weedsCount = 0;
 
     // Use this for initialization
     protected override void Start () {
@@ -33,6 +36,45 @@ public class EarthSoilScript : SoilScript {
 	// Update is called once per frame
 	protected override void Update () {
 		base.Update ();
+
+		// 1 chance sur 500
+		float randomScore = Random.Range (0, 500);
+		if (randomScore == 1) {
+			SpawnWeeds ();
+		}
+
+	}
+
+	public void SpawnWeeds(){
+
+		if (weedsCount < 5) {
+			float minX, maxX, minZ, maxZ;
+
+			minX = transform.position.x - transform.localScale.x/1.5f;
+			maxX = transform.position.x + transform.localScale.x/1.5f;
+			minZ = transform.position.z - transform.localScale.z/5f;
+			maxZ = transform.position.z + transform.localScale.z/5f;
+
+			Vector3 weedsPosition = new Vector3 (Random.Range (minX, maxX), transform.position.y + 0.4f, Random.Range (minZ, maxZ));
+
+			GameObject go = Instantiate (weedsModel, weedsPosition, Quaternion.identity);
+			if (Random.Range (0, 2) == 0) {
+				go.transform.GetChild (1).gameObject.SetActive (false);
+				go.transform.GetChild (2).gameObject.SetActive (true);
+			}
+
+			addWeeds ();
+
+			Debug.Log ("ajout d'une mauvaise herbe");
+		}
+	}
+
+	public void addWeeds(){
+		weedsCount++;
+	}
+
+	public void removeWeeds(){
+		weedsCount--;
 	}
 
 	public void AddDirtCube(float pSize){
@@ -47,6 +89,8 @@ public class EarthSoilScript : SoilScript {
 			}
 		}
 	}
+
+
 
     private void OnTriggerStay(Collider other)
     {
@@ -74,10 +118,16 @@ public class EarthSoilScript : SoilScript {
 			// Si la pelle touche un sol
 			if (other.gameObject.CompareTag ("Shovel")) {
 
+				other.gameObject.GetComponent<BoxCollider> ().isTrigger = false;
+				other.transform.parent.gameObject.transform.GetChild(0).gameObject.GetComponent<BoxCollider> ().isTrigger = false;
+				other.transform.parent.gameObject.transform.GetChild(1).gameObject.GetComponent<BoxCollider> ().isTrigger = false;
+				other.transform.parent.gameObject.transform.GetChild(2).gameObject.GetComponent<BoxCollider> ().isTrigger = false;
+				other.transform.parent.gameObject.transform.GetChild(3).gameObject.GetComponent<BoxCollider> ().isTrigger = false;
+
                 float cubeSize = maxY - minY;
 
                 Vector3 basePosition = other.gameObject.transform.position;
-				basePosition.y += 0.02f;
+				basePosition.y += 0.25f;
 				Vector3 cubesPosition;
 
 				//baisser le sol
