@@ -24,7 +24,7 @@ public class CloseAreaScript : MonoBehaviour {
             if (transform.parent.GetComponent<PlantScript>().IsPlanted)
             {
                 Debug.Log("une plante est trop proche !");
-                transform.parent.GetComponent<PlantScript>().addPenalties();
+                transform.parent.GetComponent<PlantScript>().AddPenalties();
             }
         }
 
@@ -32,7 +32,7 @@ public class CloseAreaScript : MonoBehaviour {
         if (ws != null)
         {
             Debug.Log("une mauvaise herbe est trop proche !");
-            transform.parent.GetComponent<PlantScript>().addPenalties();
+            transform.parent.GetComponent<PlantScript>().AddPenalties();
         }
  
     }

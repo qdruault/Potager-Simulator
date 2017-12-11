@@ -21,8 +21,10 @@ public class PlantScript : MonoBehaviour {
 	protected bool isPlanted = false;
     // Malus.
     protected int penalties;
+    // Current game difficulty.
+    protected Difficulty gameDifficulty;
 
-	protected Rigidbody rb;
+    protected Rigidbody rb;
 	protected MeshRenderer rr;
 
 	private EarthSoilScript earthSoil = null;
@@ -50,6 +52,9 @@ public class PlantScript : MonoBehaviour {
 	// Update is called once per frame
 	public virtual void Update ()
     {
+        // Get the current game difficulty.
+        gameDifficulty = GameObject.Find("ControlPannel").GetComponent<DifficultyScript>().GameDifficulty;
+
         if (isPlanted)
         {
 			if (earthSoil.FullPot) {
@@ -68,8 +73,8 @@ public class PlantScript : MonoBehaviour {
     {
         Debug.Log("Progress: " + growthProgress);
 
-		// MinIllumination
-		float minIllumination = optimalIllumination * 0.9f;
+        // MinIllumination
+        float minIllumination = optimalIllumination * 0.9f;
 		// Get the current illumination.
 		float currentIllumination = GameObject.Find("CursorI").GetComponent<ICursorScript>().Illumination;
         // Get the current temperature.
@@ -79,27 +84,34 @@ public class PlantScript : MonoBehaviour {
         Debug.Log("Humidity. Needed : " + optimalHumidity + " réelle : " + soil.Humidity);
         Debug.Log("Temperature. Needed : " + OptimalTemperature + " réelle : " + currentTemperature);
 
-        // If the soil is wet enough and there is enough light and ther is the riht temperature.
-        if (soil.Humidity == optimalHumidity && currentIllumination >= minIllumination && currentTemperature == optimalTemperature)
+        // If the soil is wet enough.
+        if (soil.Humidity == optimalHumidity)
         {
-            growthProgress += growthSpeed;
-            if (growthProgress > 1)
+            // Except for Easy mode, check if there is enough light and there is the right temperature.
+            if (gameDifficulty == Difficulty.Easy || currentIllumination >= minIllumination && currentTemperature == optimalTemperature)
             {
-                growthProgress = 1;
+                growthProgress += growthSpeed;
+                if (growthProgress > 1)
+                {
+                    growthProgress = 1;
+                }
             }
+            
         } else
         {
             // Ignore the malus il the plant has just been planted.
-            if (growthProgress > 0)
+            // Just for hard mode.
+            if (gameDifficulty == Difficulty.Hard && growthProgress > 0)
             {
                 penalties++;
             }
         }
     }
 
-    public void addPenalties()
+    public void AddPenalties()
     {
-		if (isPlanted) {
+        // Just fir hard mode.
+		if (gameDifficulty == Difficulty.Hard && isPlanted) {
 			penalties++;
 		}
     }

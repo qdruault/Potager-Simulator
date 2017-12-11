@@ -37,12 +37,19 @@ public class EarthSoilScript : SoilScript {
 	protected override void Update () {
 		base.Update ();
 
-		// 1 chance sur 500
-		float randomScore = Random.Range (0, 500);
-		if (randomScore == 1) {
-			SpawnWeeds ();
-		}
+        // Get the current game difficulty.
+        Difficulty gameDifficulty = GameObject.Find("ControlPannel").GetComponent<DifficultyScript>().GameDifficulty;
 
+        // Just for hard mode.
+        if (gameDifficulty == Difficulty.Hard)
+        {
+            // 1 chance sur 500
+            float randomScore = Random.Range(0, 500);
+            if (randomScore == 1)
+            {
+                SpawnWeeds();
+            }
+        }
 	}
 
 	public void SpawnWeeds(){
