@@ -32,18 +32,36 @@ public class MoldScript : MonoBehaviour {
     {
         if (other.gameObject.CompareTag("Shovel"))
         {
-            maxY = other.gameObject.transform.position.y;
+			maxY = other.gameObject.transform.position.y;
+			minY = other.gameObject.transform.position.y;
         }
     }
 
     void OnTriggerExit(Collider other) {
+
+		Debug.Log ("trigger exit");
+		Debug.Log (other.gameObject.tag);
+
         // Si la pelle touche un sol
         if (other.gameObject.CompareTag("Shovel"))
         {
+			Debug.Log ("pelle detectée");
+
+			other.gameObject.GetComponent<BoxCollider> ().isTrigger = false;
+			other.transform.parent.gameObject.transform.GetChild(0).gameObject.GetComponent<BoxCollider> ().isTrigger = false;
+			other.transform.parent.gameObject.transform.GetChild(1).gameObject.GetComponent<BoxCollider> ().isTrigger = false;
+			other.transform.parent.gameObject.transform.GetChild(2).gameObject.GetComponent<BoxCollider> ().isTrigger = false;
+			other.transform.parent.gameObject.transform.GetChild(3).gameObject.GetComponent<BoxCollider> ().isTrigger = false;
+
+			if (other.gameObject.transform.position.y > maxY)
+			{
+				maxY = other.gameObject.transform.position.y;
+			}
+
             float cubeSize = maxY - minY;
 
             Vector3 basePosition = other.gameObject.transform.position;
-            basePosition.y += 0.02f;
+            basePosition.y += 0.25f;
             Vector3 cubesPosition;
 
             // Crée les petits cubes de terre
