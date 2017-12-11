@@ -28,12 +28,12 @@ public class CloseAreaScript : MonoBehaviour {
             }
         }
 
-        /*WeedScript ws = go.GetComponent<WeedScript>();
+        WeedScript ws = go.GetComponent<WeedScript>();
         if (ws != null)
         {
             Debug.Log("une mauvaise herbe est trop proche !");
             transform.parent.GetComponent<PlantScript>().addPenalties();
-        }*/
+        }
  
     }
 }

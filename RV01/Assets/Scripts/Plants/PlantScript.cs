@@ -99,7 +99,9 @@ public class PlantScript : MonoBehaviour {
 
     public void addPenalties()
     {
-        penalties++;
+		if (isPlanted) {
+			penalties++;
+		}
     }
 
     // Over ?

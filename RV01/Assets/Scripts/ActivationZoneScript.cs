@@ -21,6 +21,14 @@ public class ActivationZoneScript : MonoBehaviour {
 			transform.parent.gameObject.transform.GetChild (0).GetComponent<BoxCollider> ().isTrigger = true;
 		}
 
+		GameObject go = other.gameObject;
+		WeedScript ws = go.GetComponent<WeedScript>();
+		if (ws != null)
+		{
+			Debug.Log("mauvaise ajoutée à la main !");
+			transform.parent.transform.GetChild (0).gameObject.GetComponent<EarthSoilScript> ().addWeeds ();
+		}
+
 	}
 
 	void OnTriggerExit(Collider other) {
@@ -28,6 +36,14 @@ public class ActivationZoneScript : MonoBehaviour {
 		if (other.gameObject.CompareTag ("Shovel"))
 		{
 			transform.parent.gameObject.transform.GetChild (0).GetComponent<BoxCollider> ().isTrigger = false;
+		}
+
+		GameObject go = other.gameObject;
+		WeedScript ws = go.GetComponent<WeedScript>();
+		if (ws != null)
+		{
+			Debug.Log("mauvaise herbe retirée !");
+			transform.parent.transform.GetChild (0).gameObject.GetComponent<EarthSoilScript> ().removeWeeds ();
 		}
 
 	}
