@@ -157,6 +157,30 @@ public class PlantScript : MonoBehaviour {
         // Destroy the "seed".
         Destroy(gameObject);
 
+        // Scenario.
+        // 1st step OK.
+        if (gameDifficulty == Difficulty.Easy)
+        {
+            // TODO: Faire une UI jolie.
+            Debug.Log("Bravo ! Maintenant attention, il faut aussi prendre en compte la luminosité et la température. A vous de jouer !");
+            // Change difficulty.
+            GameObject.Find("ControlPannel").GetComponent<DifficultyScript>().GameDifficulty = Difficulty.Normal;
+            Debug.Log(GameObject.Find("ControlPannel").GetComponent<DifficultyScript>().GameDifficulty);
+        }
+        // 2nd step OK.
+        else if (gameDifficulty == Difficulty.Normal)
+        {
+            // TODO: Faire une UI jolie.
+            Debug.Log("Vous avez la main verte à ce que je vois. Concentrez vous pour rester le plus possible dans des conditions optimales de poussée sinon votre plante sera de moindre qualité. Pensez à arracher les mauvaises herbes qui poussent et espacez suffisamment vos graines !");
+            // Change difficulty.
+            GameObject.Find("ControlPannel").GetComponent<DifficultyScript>().GameDifficulty = Difficulty.Hard;
+        }
+        else if (gameDifficulty == Difficulty.Hard)
+        {
+            // TODO: Faire une UI jolie.
+            Debug.Log("Vous venez de faire pousser votre première plante dans des conditions réelles ! Vous pouvez continuer à vous amuser.");
+        }
+
     }
 
 	void OnCollisionEnter(Collision collision){
