@@ -130,11 +130,12 @@ public class EarthSoilScript : SoilScript {
 				other.transform.parent.gameObject.transform.GetChild(1).gameObject.GetComponent<BoxCollider> ().isTrigger = false;
 				other.transform.parent.gameObject.transform.GetChild(2).gameObject.GetComponent<BoxCollider> ().isTrigger = false;
 				other.transform.parent.gameObject.transform.GetChild(3).gameObject.GetComponent<BoxCollider> ().isTrigger = false;
+				other.transform.parent.gameObject.transform.GetChild(4).gameObject.GetComponent<BoxCollider> ().isTrigger = false;
 
                 float cubeSize = maxY - minY;
 
                 Vector3 basePosition = other.gameObject.transform.position;
-				basePosition.y += 0.25f;
+				basePosition.y += 1.25f;
 				Vector3 cubesPosition;
 
 				//baisser le sol
