@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum Difficulty { Easy, Normal, Hard};
 
@@ -26,6 +27,7 @@ public class DifficultyScript : MonoBehaviour {
         gameDifficulty = Difficulty.Easy;
         // TODO: Faire une UI jolie.
         Debug.Log("Pour commencer creusez, plantez ce que vous voulez et arrosez afin de garder le sol au taux d’humidité voulu");
+        GameObject.Find("Message").GetComponent<Text>().text = "Pour commencer creusez, plantez ce que vous voulez et arrosez afin de garder le sol au taux d’humidité voulu";
     }
 	
 	// Update is called once per frame
