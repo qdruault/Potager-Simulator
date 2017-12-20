@@ -38,6 +38,8 @@ public class EarthSoilScript : SoilScript {
 	protected override void Update () {
 		base.Update ();
 
+		//Debug.Log ("Weed count : " + weedsCount);
+
         // Get the current game difficulty.
         Difficulty gameDifficulty = GameObject.Find("ControlPannel").GetComponent<DifficultyScript>().GameDifficulty;
 
@@ -71,7 +73,7 @@ public class EarthSoilScript : SoilScript {
 				go.transform.GetChild (1).gameObject.SetActive (true);
 			}
 
-			addWeeds ();
+			// Pas de AddWeed ici car il va être fait pas le activation zone
 
 			Debug.Log ("ajout d'une mauvaise herbe");
 		}
