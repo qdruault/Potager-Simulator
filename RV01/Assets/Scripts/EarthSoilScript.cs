@@ -67,8 +67,8 @@ public class EarthSoilScript : SoilScript {
 
 			GameObject go = Instantiate (weedsModel, weedsPosition, Quaternion.identity);
 			if (Random.Range (0, 2) == 0) {
-				go.transform.GetChild (1).gameObject.SetActive (false);
-				go.transform.GetChild (2).gameObject.SetActive (true);
+				go.transform.GetChild (0).gameObject.SetActive (false);
+				go.transform.GetChild (1).gameObject.SetActive (true);
 			}
 
 			addWeeds ();
