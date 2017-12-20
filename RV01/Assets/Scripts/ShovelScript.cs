@@ -11,7 +11,7 @@ public class ShovelScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//Debug.Log ("Trigger de la pelle : " + transform.GetChild (4).gameObject.GetComponent<BoxCollider> ().isTrigger);
+		Debug.Log ("Trigger de la pelle : " + transform.GetChild (4).gameObject.GetComponent<BoxCollider> ().isTrigger);
 	}
 
 	void OnCollisionEnter(Collision collision){

@@ -139,8 +139,9 @@ public class EarthSoilScript : SoilScript {
 
                 float cubeSize = maxY - minY;
 
-                Vector3 basePosition = other.gameObject.transform.position;
-				basePosition.y += 1.25f;
+				// Position du fond
+				Vector3 basePosition = other.transform.parent.gameObject.transform.GetChild(4).gameObject.transform.position;
+				basePosition.y += 0.25f;
 				Vector3 cubesPosition;
 
 				//baisser le sol
