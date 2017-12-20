@@ -164,7 +164,7 @@ public class PlantScript : MonoBehaviour {
         {
             // TODO: Faire une UI jolie.
             Debug.Log("Bravo ! Maintenant attention, il faut aussi prendre en compte la luminosité et la température. A vous de jouer !");
-            GameObject.Find("Message").GetComponent<Text>().text = "Bravo ! Maintenant attention, il faut aussi prendre en compte la luminosité et la température. A vous de jouer !";
+			GameObject.Find ("CanvasFirstPerson").GetComponent<CanvasFirstPersonScript> ().AddText ("Bravo ! Maintenant attention, il faut aussi prendre en compte la luminosité et la température. A vous de jouer !");
             // Change difficulty.
             GameObject.Find("ControlPannel").GetComponent<DifficultyScript>().GameDifficulty = Difficulty.Normal;
 
@@ -174,7 +174,7 @@ public class PlantScript : MonoBehaviour {
         {
             // TODO: Faire une UI jolie.
             Debug.Log("Vous avez la main verte à ce que je vois. Concentrez vous pour rester le plus possible dans des conditions optimales de poussée sinon votre plante sera de moindre qualité. Pensez à arracher les mauvaises herbes qui poussent et espacez suffisamment vos graines !");
-            GameObject.Find("Message").GetComponent<Text>().text = "Vous avez la main verte à ce que je vois. Concentrez vous pour rester le plus possible dans des conditions optimales de poussée sinon votre plante sera de moindre qualité. Pensez à arracher les mauvaises herbes qui poussent et espacez suffisamment vos graines !";
+			GameObject.Find ("CanvasFirstPerson").GetComponent<CanvasFirstPersonScript> ().AddText ("Vous avez la main verte à ce que je vois. Concentrez vous pour rester le plus possible dans des conditions optimales de poussée sinon votre plante sera de moindre qualité. Pensez à arracher les mauvaises herbes qui poussent et espacez suffisamment vos graines !");
             // Change difficulty.
             GameObject.Find("ControlPannel").GetComponent<DifficultyScript>().GameDifficulty = Difficulty.Hard;
         }
@@ -182,7 +182,7 @@ public class PlantScript : MonoBehaviour {
         {
             // TODO: Faire une UI jolie.
             Debug.Log("Vous venez de faire pousser votre première plante dans des conditions réelles ! Vous pouvez continuer à vous amuser.");
-            GameObject.Find("Message").GetComponent<Text>().text = "Vous venez de faire pousser votre première plante dans des conditions réelles ! Vous pouvez continuer à vous amuser.";
+			GameObject.Find ("CanvasFirstPerson").GetComponent<CanvasFirstPersonScript> ().AddText ("Vous venez de faire pousser votre première plante dans des conditions réelles ! Vous pouvez continuer à vous amuser.");
         }
 
     }

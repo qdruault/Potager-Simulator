@@ -27,7 +27,7 @@ public class DifficultyScript : MonoBehaviour {
         gameDifficulty = Difficulty.Easy;
         // TODO: Faire une UI jolie.
         Debug.Log("Pour commencer creusez, plantez ce que vous voulez et arrosez afin de garder le sol au taux d’humidité voulu");
-        GameObject.Find("Message").GetComponent<Text>().text = "Pour commencer creusez, plantez ce que vous voulez et arrosez afin de garder le sol au taux d’humidité voulu";
+		GameObject.Find ("CanvasFirstPerson").GetComponent<CanvasFirstPersonScript> ().AddText ("Pour commencer creusez, plantez ce que vous voulez et arrosez afin de garder le sol au taux d’humidité voulu");
     }
 	
 	// Update is called once per frame
