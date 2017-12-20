@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EarthSoilScript : SoilScript {
 
@@ -89,9 +90,11 @@ public class EarthSoilScript : SoilScript {
 			transform.Translate (new Vector3 (0, pSize / 10.0f, 0));
 			if (emptyPot) {
 				emptyPot = false;
+				this.transform.parent.GetChild (7).transform.GetChild (0).gameObject.GetComponent<Text> ().text = "";
 			}
 			if (transform.position.y >= YThresholdUp) {
 				fullPot = true;
+				this.transform.parent.GetChild (7).transform.GetChild (0).gameObject.GetComponent<Text> ().text = "Pret";
 				Debug.Log ("ATTEINT");
 			}
 		}
@@ -142,9 +145,11 @@ public class EarthSoilScript : SoilScript {
 				transform.Translate (new Vector3 (0, cubeSize / -10.0f, 0));
 				if (fullPot) {
 					fullPot = false;
+					this.transform.parent.GetChild (7).transform.GetChild (0).gameObject.GetComponent<Text> ().text = "";
 				}
 				if (transform.position.y <= YThresholdDown) {
 					emptyPot = true;
+					this.transform.parent.GetChild (7).transform.GetChild (0).gameObject.GetComponent<Text> ().text = "Pret";
 					Debug.Log ("ATTEINT");
 				}
 
