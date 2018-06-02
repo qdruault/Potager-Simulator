@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EarthSoilScript : SoilScript {
 
@@ -37,6 +38,8 @@ public class EarthSoilScript : SoilScript {
 	protected override void Update () {
 		base.Update ();
 
+		//Debug.Log ("Weed count : " + weedsCount);
+
         // Get the current game difficulty.
         Difficulty gameDifficulty = GameObject.Find("ControlPannel").GetComponent<DifficultyScript>().GameDifficulty;
 
@@ -66,11 +69,11 @@ public class EarthSoilScript : SoilScript {
 
 			GameObject go = Instantiate (weedsModel, weedsPosition, Quaternion.identity);
 			if (Random.Range (0, 2) == 0) {
-				go.transform.GetChild (1).gameObject.SetActive (false);
-				go.transform.GetChild (2).gameObject.SetActive (true);
+				go.transform.GetChild (0).gameObject.SetActive (false);
+				go.transform.GetChild (1).gameObject.SetActive (true);
 			}
 
-			addWeeds ();
+			// Pas de AddWeed ici car il va être fait pas le activation zone
 
 			Debug.Log ("ajout d'une mauvaise herbe");
 		}
@@ -89,9 +92,11 @@ public class EarthSoilScript : SoilScript {
 			transform.Translate (new Vector3 (0, pSize / 10.0f, 0));
 			if (emptyPot) {
 				emptyPot = false;
+				this.transform.parent.GetChild (7).transform.GetChild (0).gameObject.GetComponent<Text> ().text = "";
 			}
 			if (transform.position.y >= YThresholdUp) {
 				fullPot = true;
+				this.transform.parent.GetChild (7).transform.GetChild (0).gameObject.GetComponent<Text> ().text = "Pret";
 				Debug.Log ("ATTEINT");
 			}
 		}
@@ -130,10 +135,12 @@ public class EarthSoilScript : SoilScript {
 				other.transform.parent.gameObject.transform.GetChild(1).gameObject.GetComponent<BoxCollider> ().isTrigger = false;
 				other.transform.parent.gameObject.transform.GetChild(2).gameObject.GetComponent<BoxCollider> ().isTrigger = false;
 				other.transform.parent.gameObject.transform.GetChild(3).gameObject.GetComponent<BoxCollider> ().isTrigger = false;
+				other.transform.parent.gameObject.transform.GetChild(4).gameObject.GetComponent<BoxCollider> ().isTrigger = false;
 
                 float cubeSize = maxY - minY;
 
-                Vector3 basePosition = other.gameObject.transform.position;
+				// Position du fond
+				Vector3 basePosition = other.transform.parent.gameObject.transform.GetChild(4).gameObject.transform.position;
 				basePosition.y += 0.25f;
 				Vector3 cubesPosition;
 
@@ -141,9 +148,11 @@ public class EarthSoilScript : SoilScript {
 				transform.Translate (new Vector3 (0, cubeSize / -10.0f, 0));
 				if (fullPot) {
 					fullPot = false;
+					this.transform.parent.GetChild (7).transform.GetChild (0).gameObject.GetComponent<Text> ().text = "";
 				}
 				if (transform.position.y <= YThresholdDown) {
 					emptyPot = true;
+					this.transform.parent.GetChild (7).transform.GetChild (0).gameObject.GetComponent<Text> ().text = "Pret";
 					Debug.Log ("ATTEINT");
 				}
 
@@ -153,6 +162,7 @@ public class EarthSoilScript : SoilScript {
 				cubesPosition.z += 0.05f;
 				GameObject cube = Instantiate (dirtCubeModel, cubesPosition, Quaternion.identity);
                 cube.transform.localScale = new Vector3(cubeSize, cubeSize, cubeSize);
+                cube.tag = "Draggable";
                 
                 // Reset.
                 minY = 1000000000;

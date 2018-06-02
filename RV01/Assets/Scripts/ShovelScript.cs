@@ -11,14 +11,11 @@ public class ShovelScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		//Debug.Log ("Trigger de la pelle : " + transform.GetChild (4).gameObject.GetComponent<BoxCollider> ().isTrigger);
 	}
 
 	void OnCollisionEnter(Collision collision){
-		Debug.Log ("collision");
-		Debug.Log (collision.gameObject.tag);
 		if (collision.gameObject.CompareTag ("Soil") || collision.gameObject.CompareTag("Mold")) {
-			Debug.Log ("istrigger");
 			transform.GetChild (0).gameObject.GetComponent<BoxCollider> ().isTrigger = true;
 			transform.GetChild (1).gameObject.GetComponent<BoxCollider> ().isTrigger = true;
 			transform.GetChild (2).gameObject.GetComponent<BoxCollider> ().isTrigger = true;

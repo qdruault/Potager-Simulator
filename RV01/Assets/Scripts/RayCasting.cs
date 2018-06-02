@@ -53,6 +53,10 @@ public class RayCasting : MonoBehaviour
                 {
                     attachedObject = hitInfo.rigidbody;
                     attachedObject.isKinematic = true;
+
+					// TESTPELLE
+					//attachedObject.useGravity = false;
+
                     distanceToObj = hitInfo.distance;
                     Cursor.SetCursor(cursorDragged, hotSpot, cursorMode);
                 }
@@ -68,6 +72,10 @@ public class RayCasting : MonoBehaviour
             else if (Input.GetMouseButtonUp(0) && attachedObject != null)   // L'utilisateur relache un objet saisi
             {
                 attachedObject.isKinematic = false;
+
+				// TESTPELLE
+				//attachedObject.useGravity = true;
+
                 attachedObject = null;
 
                 if (isDraggable)
@@ -82,6 +90,9 @@ public class RayCasting : MonoBehaviour
 
             else if (Input.GetMouseButton(0) && attachedObject != null) // L'utilisateur continue la saisie d'un objet
             {
+				// TESTPELLE
+				//attachedObject.angularVelocity = Vector3.zero;
+
                 attachedObject.MovePosition(ray.origin + (ray.direction * distanceToObj));
 
 				if (Input.GetKeyDown (KeyCode.P)) {
