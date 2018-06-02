@@ -162,6 +162,7 @@ public class EarthSoilScript : SoilScript {
 				cubesPosition.z += 0.05f;
 				GameObject cube = Instantiate (dirtCubeModel, cubesPosition, Quaternion.identity);
                 cube.transform.localScale = new Vector3(cubeSize, cubeSize, cubeSize);
+                cube.tag = "Draggable";
                 
                 // Reset.
                 minY = 1000000000;
